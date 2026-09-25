@@ -1,0 +1,309 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        SelectionDay
+    </title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #08090c;
+            color: #f0f4f8;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background: #0d0f13;
+            border-bottom: 1px solid #232932;
+            padding: 18px 24px;
+        }
+
+        .header-inner {
+            max-width: 1150px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #ccff00;
+            text-decoration: none;
+            font-size: 22px;
+            font-weight: 900;
+        }
+
+        .my-courses {
+            color: #f0f4f8;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .my-courses:hover {
+            color: #ccff00;
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: auto;
+            padding: 35px 24px 60px;
+        }
+
+        .hero h1 {
+            margin: 0 0 8px;
+            font-size: 34px;
+        }
+
+        .hero p {
+            color: #8b95a3;
+            margin: 0;
+        }
+
+        .powered {
+            margin-top: 20px;
+            color: #8b95a3;
+            font-size: 13px;
+        }
+
+        .powered strong {
+            color: #f0f4f8;
+        }
+
+        .filters {
+            margin-top: 30px;
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid #232932;
+        }
+
+        .filter {
+            padding: 12px 18px;
+            text-decoration: none;
+            color: #8b95a3;
+            font-size: 12px;
+            font-weight: 800;
+            border-bottom: 2px solid transparent;
+        }
+
+        .filter.active {
+            color: #ccff00;
+            border-bottom-color: #ccff00;
+        }
+
+        .course-count {
+            margin: 22px 0;
+            color: #7f8997;
+            font-size: 13px;
+        }
+
+        .courses {
+            display: grid;
+            grid-template-columns:
+                repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .course {
+            background: #0d0f13;
+            border: 1px solid #232932;
+            padding: 22px;
+            text-decoration: none;
+            color: #f0f4f8;
+            min-height: 170px;
+        }
+
+        .course:hover {
+            border-color: #ccff00;
+        }
+
+        .course-name {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .course-description {
+            color: #8b95a3;
+            line-height: 1.5;
+            font-size: 13px;
+        }
+
+        .open-course {
+            margin-top: 22px;
+            color: #ccff00;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .empty {
+            padding: 30px;
+            border: 1px solid #232932;
+            color: #7f8997;
+            text-align: center;
+        }
+
+        @media (max-width: 850px) {
+
+            .courses {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .header-inner {
+                align-items: flex-start;
+            }
+
+            .container {
+                padding: 25px 14px 50px;
+            }
+
+            .courses {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<header>
+
+    <div class="header-inner">
+
+        <a
+            class="logo"
+            href="/">
+            SelectionDay
+        </a>
+
+        <a
+            class="my-courses"
+            href="/my-courses">
+
+            MY COURSES
+
+        </a>
+
+    </div>
+
+</header>
+
+
+<div class="container">
+
+
+    <div class="hero">
+
+        <h1>
+            Choose Your Course
+        </h1>
+
+        <p>
+            Learn at your own pace.
+        </p>
+
+        <div class="powered">
+            ⚡ Powered by <strong>SelectionDay</strong>.
+        </div>
+
+    </div>
+
+
+    <div class="filters">
+
+        <a
+            class="filter {% if selected_filter == 'all' %}active{% endif %}"
+            href="/?filter=all">
+
+            ALL
+
+        </a>
+
+        <a
+            class="filter {% if selected_filter == 'enrolled' %}active{% endif %}"
+            href="/?filter=enrolled">
+
+            ENROLLED ({{ enrolled_count }})
+
+        </a>
+
+    </div>
+
+
+    <div class="course-count">
+
+        {{ course_count }} Courses
+
+    </div>
+
+
+    {% if courses %}
+
+    <div class="courses">
+
+        {% for course in courses %}
+
+        <a
+            class="course"
+            href="/course/{{ course.id }}">
+
+            <div class="course-name">
+                {{ course.name }}
+            </div>
+
+            <div class="course-description">
+                {{ course.description }}
+            </div>
+
+            <div class="open-course">
+                OPEN COURSE →
+            </div>
+
+        </a>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="empty">
+
+        You haven't enrolled in any courses yet.
+
+    </div>
+
+    {% endif %}
+
+
+</div>
+
+</body>
+</html>

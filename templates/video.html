@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {{ video.title }} - SelectionDay
+    </title>
+
+    <style>
+
+        body {
+            margin: 0;
+            background: #08090c;
+            color: #f0f4f8;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 30px 20px;
+        }
+
+        a {
+            color: #ccff00;
+            text-decoration: none;
+        }
+
+        h1 {
+            margin-top: 30px;
+        }
+
+        .box {
+            margin-top: 20px;
+            padding: 25px;
+            background: #0d0f13;
+            border: 1px solid #232932;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <a href="/course/{{ course.id }}?tab=videos">
+        ← Back to Videos
+    </a>
+
+    <h1>
+        {{ video.title }}
+    </h1>
+
+    <div class="box">
+
+        This class is opened from the
+        course page using the quality selection.
+
+        <br><br>
+
+        Please return to the course page and click
+        <strong>WATCH</strong>.
+
+    </div>
+
+</div>
+
+</body>
+</html>

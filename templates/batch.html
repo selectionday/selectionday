@@ -1,0 +1,345 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ batch.title }} - My Study Platform</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #07090d;
+            color: #f4f6f8;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        header {
+            height: 70px;
+            border-bottom: 1px solid #292f39;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+        }
+
+        .logo {
+            color: #b8ff00;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            gap: 28px;
+            color: #a3aec0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 55px 25px 80px;
+        }
+
+        .back {
+            color: #8995a8;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .batch-layout {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 45px;
+            margin-top: 35px;
+        }
+
+        .banner {
+            min-height: 350px;
+            border: 1px solid #303743;
+            background:
+                radial-gradient(circle at 70% 30%, #405900, transparent 20%),
+                linear-gradient(135deg, #25002d, #10051d 50%, #071527);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .banner-title {
+            color: #b8ff00;
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .status {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: #b8ff00;
+            color: #07090d;
+            padding: 8px 12px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .details h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+
+        .description {
+            color: #8190a5;
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .price {
+            color: #b8ff00;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .old-price {
+            color: #697487;
+            text-decoration: line-through;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+
+        .info {
+            display: flex;
+            gap: 10px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            border: 1px solid #303844;
+            padding: 9px 12px;
+            color: #8491a5;
+            font-size: 11px;
+        }
+
+        .enroll {
+            display: inline-block;
+            background: #b8ff00;
+            color: #07090d;
+            padding: 15px 28px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .content {
+            margin-top: 65px;
+            border-top: 1px solid #282f39;
+            padding-top: 35px;
+        }
+
+        .content h2 {
+            color: #b8ff00;
+            font-size: 18px;
+            margin-bottom: 25px;
+        }
+
+        .chapter {
+            border: 1px solid #2b323d;
+            padding: 20px;
+            margin-bottom: 12px;
+            background: #14181e;
+        }
+
+        .chapter-title {
+            font-weight: bold;
+        }
+
+        .lecture {
+            color: #7d899d;
+            margin-top: 12px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 800px) {
+
+            .batch-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .details h1 {
+                font-size: 32px;
+            }
+
+            nav {
+                display: none;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header>
+
+    <a href="/" class="logo">
+        My Study Platform
+    </a>
+
+    <nav>
+
+        <a href="/">Home</a>
+
+        <a href="/courses">Courses</a>
+
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+    <a href="/" class="back">
+        ← BACK TO BATCHES
+    </a>
+
+
+    <div class="batch-layout">
+
+
+        <div class="banner">
+
+            <div class="status">
+                {{ batch.type }}
+            </div>
+
+            <div class="banner-title">
+                {{ batch.title }}
+            </div>
+
+        </div>
+
+
+        <div class="details">
+
+            <h1>
+                {{ batch.title }}
+            </h1>
+
+            <p class="description">
+                {{ batch.description }}
+            </p>
+
+            <div>
+
+                <span class="price">
+                    {% if batch.price == 0 %}
+                        FREE
+                    {% else %}
+                        ₹{{ batch.price }}
+                    {% endif %}
+                </span>
+
+                {% if batch.old_price > 0 %}
+
+                    <span class="old-price">
+                        ₹{{ batch.old_price }}
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="info">
+
+                <span class="tag">
+                    {{ batch.type }}
+                </span>
+
+                <span class="tag">
+                    {{ batch.duration }}
+                </span>
+
+                <span class="tag">
+                    VIDEO LECTURES
+                </span>
+
+            </div>
+
+
+            <a href="#" class="enroll">
+                ENROLL NOW →
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="content">
+
+        <h2>
+            /// COURSE CONTENT
+        </h2>
+
+        <div class="chapter">
+
+            <div class="chapter-title">
+                Chapter 01 — Introduction
+            </div>
+
+            <div class="lecture">
+                ▶ Lecture 01 — Introduction
+            </div>
+
+        </div>
+
+        <div class="chapter">
+
+            <div class="chapter-title">
+                Chapter 02 — Main Concepts
+            </div>
+
+            <div class="lecture">
+                ▶ Lecture 02 — Complete Concept
+            </div>
+
+        </div>
+
+        <div class="chapter">
+
+            <div class="chapter-title">
+                Chapter 03 — Practice
+            </div>
+
+            <div class="lecture">
+                ▶ Lecture 03 — Practice Questions
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

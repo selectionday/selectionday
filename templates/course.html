@@ -1,0 +1,666 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ course.name }} - SelectionDay</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #08090c;
+            color: #f0f4f8;
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            background: #0d0f13;
+            border-bottom: 1px solid #232932;
+            padding: 18px 24px;
+        }
+
+        .topbar {
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .brand {
+            color: #ccff00;
+            font-size: 20px;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .back {
+            color: #9aa4b2;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back:hover {
+            color: #ccff00;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 30px 24px 60px;
+        }
+
+        .course-title {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .description {
+            color: #9aa4b2;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .enroll-area {
+            margin-bottom: 30px;
+        }
+
+        .enroll-btn,
+        .unenroll-btn {
+            border: 0;
+            padding: 13px 22px;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .enroll-btn {
+            background: #ccff00;
+            color: #08090c;
+        }
+
+        .unenroll-btn {
+            background: #20262d;
+            color: #f0f4f8;
+            border: 1px solid #303742;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid #232932;
+            margin-bottom: 25px;
+        }
+
+        .tab {
+            text-decoration: none;
+            color: #8b95a3;
+            padding: 13px 20px;
+            font-size: 13px;
+            font-weight: 800;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab:hover {
+            color: #ccff00;
+        }
+
+        .tab.active {
+            color: #ccff00;
+            border-bottom-color: #ccff00;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        .video-list,
+        .notes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .video-item,
+        .note-item {
+            background: #0d0f13;
+            border: 1px solid #232932;
+            padding: 17px;
+        }
+
+        .video-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .video-info {
+            min-width: 0;
+        }
+
+        .class-number {
+            color: #ccff00;
+            font-size: 12px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .video-title,
+        .note-title {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .teacher {
+            color: #7f8997;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .watch-btn,
+        .note-btn {
+            flex-shrink: 0;
+            border: 1px solid #303742;
+            background: #08090c;
+            color: #f0f4f8;
+            padding: 11px 18px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .watch-btn:hover,
+        .note-btn:hover {
+            border-color: #ccff00;
+            color: #ccff00;
+        }
+
+        .overview {
+            background: #0d0f13;
+            border: 1px solid #232932;
+            padding: 22px;
+            color: #9aa4b2;
+            line-height: 1.7;
+        }
+
+        .empty {
+            background: #0d0f13;
+            border: 1px solid #232932;
+            padding: 25px;
+            color: #7f8997;
+            text-align: center;
+        }
+
+        /* QUALITY POPUP */
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.78);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .quality-modal {
+            width: 100%;
+            max-width: 360px;
+            background: #0d0f13;
+            border: 1px solid #303742;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+            border-bottom: 1px solid #232932;
+        }
+
+        .modal-title {
+            font-size: 15px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .close-btn {
+            border: 0;
+            background: transparent;
+            color: #8b95a3;
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: #ccff00;
+        }
+
+        .quality-options {
+            padding: 12px;
+        }
+
+        .quality-option {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            margin-bottom: 8px;
+            border: 1px solid #232932;
+            background: #08090c;
+            color: #f0f4f8;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 800;
+            text-align: left;
+        }
+
+        .quality-option:last-child {
+            margin-bottom: 0;
+        }
+
+        .quality-option:hover {
+            border-color: #ccff00;
+            color: #ccff00;
+        }
+
+        .quality-arrow {
+            color: #6f7885;
+        }
+
+        .quality-option:hover .quality-arrow {
+            color: #ccff00;
+        }
+
+        .modal-footer {
+            padding: 14px 20px 18px;
+            color: #66707e;
+            font-size: 11px;
+            text-align: center;
+        }
+
+        @media (max-width: 700px) {
+
+            .header {
+                padding: 15px;
+            }
+
+            .container {
+                padding: 22px 14px 50px;
+            }
+
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .course-title {
+                font-size: 26px;
+            }
+
+            .tabs {
+                overflow-x: auto;
+            }
+
+            .video-item {
+                align-items: flex-start;
+            }
+
+            .watch-btn {
+                padding: 10px 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <div class="topbar">
+
+        <a class="brand" href="/">
+            SelectionDay
+        </a>
+
+        <a class="back" href="/">
+            ← Back to Courses
+        </a>
+
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="course-title">
+        {{ course.name }}
+    </div>
+
+    <div class="description">
+        {{ course.description }}
+    </div>
+
+    <div class="enroll-area">
+
+        {% if is_enrolled %}
+
+        <form method="POST" action="/unenroll/{{ course.id }}">
+            <button class="unenroll-btn" type="submit">
+                ✓ ENROLLED
+            </button>
+        </form>
+
+        {% else %}
+
+        <form method="POST" action="/enroll/{{ course.id }}">
+            <button class="enroll-btn" type="submit">
+                ENROLL NOW
+            </button>
+        </form>
+
+        {% endif %}
+
+    </div>
+
+    <div class="tabs">
+
+        <a
+            class="tab {% if tab == 'overview' %}active{% endif %}"
+            href="/course/{{ course.id }}?tab=overview">
+            OVERVIEW
+        </a>
+
+        <a
+            class="tab {% if tab == 'videos' %}active{% endif %}"
+            href="/course/{{ course.id }}?tab=videos">
+            VIDEOS
+        </a>
+
+        <a
+            class="tab {% if tab == 'notes' %}active{% endif %}"
+            href="/course/{{ course.id }}?tab=notes">
+            NOTES
+        </a>
+
+    </div>
+
+
+    {% if tab == "overview" %}
+
+        <div class="section-title">
+            About this course
+        </div>
+
+        <div class="overview">
+            {{ course.description }}
+
+            <br><br>
+
+            This course contains video classes and study material
+            for your preparation.
+        </div>
+
+
+    {% elif tab == "videos" %}
+
+        <div class="section-title">
+            Video Classes
+        </div>
+
+        {% if videos %}
+
+        <div class="video-list">
+
+            {% for video in videos %}
+
+            <div class="video-item">
+
+                <div class="video-info">
+
+                    <div class="class-number">
+                        CLASS {{ "%02d"|format(loop.index) }}
+                    </div>
+
+                    <div class="video-title">
+                        {{ video.title }}
+                    </div>
+
+                    <div class="teacher">
+                        {{ video.teacher }}
+                    </div>
+
+                </div>
+
+                <button
+                    class="watch-btn"
+                    type="button"
+                    onclick="openQualityPopup({{ loop.index0 }})">
+                    WATCH →
+                </button>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="empty">
+            No video classes available yet.
+        </div>
+
+        {% endif %}
+
+
+    {% elif tab == "notes" %}
+
+        <div class="section-title">
+            Notes
+        </div>
+
+        {% if notes %}
+
+        <div class="notes-list">
+
+            {% for note in notes %}
+
+            <div class="note-item">
+
+                <div class="note-title">
+                    {{ note.title }}
+                </div>
+
+                <br>
+
+                <a
+                    class="note-btn"
+                    href="{{ note.url }}"
+                    target="_blank">
+                    OPEN NOTE →
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="empty">
+            No notes available yet.
+        </div>
+
+        {% endif %}
+
+    {% endif %}
+
+</div>
+
+
+<!-- QUALITY POPUP -->
+
+<div
+    id="qualityModal"
+    class="modal-overlay"
+    onclick="closeQualityPopup(event)">
+
+    <div
+        class="quality-modal"
+        onclick="event.stopPropagation()">
+
+        <div class="modal-header">
+
+            <div class="modal-title">
+                Select Video Quality
+            </div>
+
+            <button
+                class="close-btn"
+                onclick="closeQualityPopup()">
+                ×
+            </button>
+
+        </div>
+
+        <div class="quality-options">
+
+            <button
+                class="quality-option"
+                onclick="openVideo('720p')">
+
+                <span>720P</span>
+                <span class="quality-arrow">→</span>
+
+            </button>
+
+            <button
+                class="quality-option"
+                onclick="openVideo('480p')">
+
+                <span>480P</span>
+                <span class="quality-arrow">→</span>
+
+            </button>
+
+            <button
+                class="quality-option"
+                onclick="openVideo('360p')">
+
+                <span>360P</span>
+                <span class="quality-arrow">→</span>
+
+            </button>
+
+            <button
+                class="quality-option"
+                onclick="openVideo('240p')">
+
+                <span>240P</span>
+                <span class="quality-arrow">→</span>
+
+            </button>
+
+        </div>
+
+        <div class="modal-footer">
+            Video will open in a new browser tab.
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    const videosData = {{ videos | tojson }};
+
+    let selectedVideoIndex = null;
+
+
+    function openQualityPopup(videoIndex) {
+
+        selectedVideoIndex = videoIndex;
+
+        const modal = document.getElementById("qualityModal");
+
+        modal.classList.add("show");
+
+    }
+
+
+    function closeQualityPopup(event) {
+
+        if (event && event.target !== event.currentTarget) {
+            return;
+        }
+
+        const modal = document.getElementById("qualityModal");
+
+        modal.classList.remove("show");
+
+        selectedVideoIndex = null;
+    }
+
+
+    function openVideo(quality) {
+
+        if (selectedVideoIndex === null) {
+            return;
+        }
+
+        const video = videosData[selectedVideoIndex];
+
+        if (
+            !video ||
+            !video.quality ||
+            !video.quality[quality]
+        ) {
+            alert("This video quality is not available.");
+            return;
+        }
+
+        const url = video.quality[quality];
+
+        /*
+            Open the video in a completely new browser tab.
+            SelectionDay remains open in the original tab.
+        */
+
+        window.open(url, "_blank");
+
+        closeQualityPopup();
+
+    }
+
+
+    document.addEventListener("keydown", function(event) {
+
+        if (event.key === "Escape") {
+            closeQualityPopup();
+        }
+
+    });
+
+</script>
+
+</body>
+</html>
