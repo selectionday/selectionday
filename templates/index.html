@@ -698,7 +698,7 @@
             }
 
             .telegram-float {
-                top: 18px !important;
+                top: 82px !important;
                 right: 12px !important;
                 left: 12px !important;
                 width: auto;
@@ -722,7 +722,7 @@
             }
 
             .telegram-float {
-                top: 18px !important;
+                top: 82px !important;
                 right: 12px !important;
                 left: auto !important;
                 width: min(320px, calc(100vw - 24px));
@@ -919,43 +919,10 @@
 
 
 <script>
-function keepTelegramFixed() {
-    const telegram = document.getElementById("telegramFloat");
-    if (!telegram) return;
-
-    // Keep the Telegram card attached to the browser viewport, not the page content.
-    if (telegram.parentElement !== document.body) {
-        document.body.appendChild(telegram);
-    }
-
-    telegram.style.setProperty("position", "fixed", "important");
-    telegram.style.setProperty("top", "18px", "important");
-    telegram.style.setProperty("right", "28px", "important");
-    telegram.style.setProperty("bottom", "auto", "important");
-    telegram.style.setProperty("left", "auto", "important");
-    telegram.style.setProperty("z-index", "2147483000", "important");
-}
-
-keepTelegramFixed();
-window.addEventListener("scroll", keepTelegramFixed, { passive: true });
-window.addEventListener("resize", keepTelegramFixed);
-
 function closeTelegramFloat() {
     const telegram = document.getElementById("telegramFloat");
     if (telegram) telegram.style.display = "none";
 }
-
-// Keep Telegram pinned to the viewport even while the page is scrolling.
-window.addEventListener("scroll", function () {
-    const telegram = document.getElementById("telegramFloat");
-    if (telegram && telegram.style.display !== "none") {
-        telegram.style.position = "absolute";
-        telegram.style.top = "118px";
-        telegram.style.right = "28px";
-        telegram.style.left = "auto";
-        telegram.style.bottom = "auto";
-    }
-}, { passive: true });
 </script>
 
 </body>
