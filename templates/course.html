@@ -1,216 +1,598 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
     <title>{{ course.name }} - SelectionDay</title>
 
     <style>
+
         * {
             box-sizing: border-box;
         }
 
         body {
             margin: 0;
-            background: #08090c;
-            color: #f0f4f8;
+
+            background:
+                radial-gradient(
+                    circle at top left,
+                    #172554 0%,
+                    transparent 32%
+                ),
+                radial-gradient(
+                    circle at top right,
+                    #3b0764 0%,
+                    transparent 30%
+                ),
+                #070b14;
+
+            color: #f8fafc;
             font-family: Arial, sans-serif;
         }
 
+
+        /* HEADER */
+
         .header {
-            background: #0d0f13;
-            border-bottom: 1px solid #232932;
+            background: rgba(10, 15, 28, 0.88);
+            backdrop-filter: blur(12px);
+
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+
             padding: 18px 24px;
+
+            position: sticky;
+            top: 0;
+
+            z-index: 100;
         }
 
         .topbar {
             max-width: 1100px;
             margin: auto;
+
             display: flex;
             justify-content: space-between;
             align-items: center;
+
             gap: 20px;
         }
 
         .brand {
-            color: #ccff00;
-            font-size: 20px;
-            font-weight: 800;
+            color: #ffffff;
+
+            font-size: 21px;
+            font-weight: 900;
+
             text-decoration: none;
+        }
+
+        .brand::before {
+            content: "⚡ ";
+            color: #facc15;
         }
 
         .back {
-            color: #9aa4b2;
+            color: #cbd5e1;
+
             text-decoration: none;
-            font-size: 14px;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            padding: 9px 14px;
+
+            border-radius: 9px;
+
+            background: rgba(255,255,255,0.05);
+
+            transition: 0.2s;
         }
 
         .back:hover {
-            color: #ccff00;
+            color: #ffffff;
+
+            background: rgba(139,92,246,0.2);
         }
+
+
+        /* MAIN */
 
         .container {
             max-width: 1100px;
+
             margin: auto;
-            padding: 30px 24px 60px;
+
+            padding: 40px 24px 70px;
+        }
+
+
+        /* COURSE HEADER */
+
+        .course-header {
+            position: relative;
+
+            overflow: hidden;
+
+            padding: 30px;
+
+            margin-bottom: 28px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(37,99,235,0.22),
+                    rgba(124,58,237,0.20),
+                    rgba(236,72,153,0.12)
+                );
+
+            border: 1px solid rgba(255,255,255,0.10);
+
+            box-shadow:
+                0 15px 45px rgba(0,0,0,0.25);
+        }
+
+        .course-header::after {
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            right: -70px;
+            top: -80px;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #3b82f6,
+                    #a855f7,
+                    #ec4899
+                );
+
+            opacity: 0.20;
+
+            filter: blur(5px);
         }
 
         .course-title {
-            font-size: 32px;
-            font-weight: 800;
-            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+
+            font-size: 34px;
+
+            font-weight: 900;
+
+            margin-bottom: 10px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #60a5fa,
+                    #a78bfa,
+                    #f472b6
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
         }
 
         .description {
-            color: #9aa4b2;
-            line-height: 1.6;
-            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+
+            color: #c0cad8;
+
+            line-height: 1.65;
+
+            margin-bottom: 22px;
         }
 
+
+        /* ENROLL */
+
         .enroll-area {
-            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+
+            margin-bottom: 0;
         }
 
         .enroll-btn,
         .unenroll-btn {
+
             border: 0;
-            padding: 13px 22px;
-            font-size: 13px;
-            font-weight: 800;
+
+            padding: 12px 20px;
+
+            font-size: 12px;
+
+            font-weight: 900;
+
             cursor: pointer;
+
+            border-radius: 9px;
+
+            transition: 0.2s;
         }
 
         .enroll-btn {
-            background: #ccff00;
-            color: #08090c;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #22c55e,
+                    #16a34a
+                );
+
+            color: #ffffff;
+
+            box-shadow:
+                0 7px 20px rgba(34,197,94,0.25);
+        }
+
+        .enroll-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 25px rgba(34,197,94,0.35);
         }
 
         .unenroll-btn {
-            background: #20262d;
-            color: #f0f4f8;
-            border: 1px solid #303742;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #334155,
+                    #1e293b
+                );
+
+            color: #ffffff;
+
+            border: 1px solid #475569;
         }
 
+        .unenroll-btn:hover {
+            border-color: #ef4444;
+
+            color: #fca5a5;
+        }
+
+
+        /* TABS */
+
         .tabs {
+
             display: flex;
-            gap: 8px;
-            border-bottom: 1px solid #232932;
-            margin-bottom: 25px;
+
+            gap: 6px;
+
+            border-bottom:
+                1px solid rgba(255,255,255,0.09);
+
+            margin-bottom: 28px;
+
+            overflow-x: auto;
         }
 
         .tab {
+
             text-decoration: none;
-            color: #8b95a3;
+
+            color: #94a3b8;
+
             padding: 13px 20px;
-            font-size: 13px;
-            font-weight: 800;
-            border-bottom: 2px solid transparent;
+
+            font-size: 12px;
+
+            font-weight: 900;
+
+            border-radius:
+                10px 10px 0 0;
+
+            border-bottom:
+                3px solid transparent;
+
+            white-space: nowrap;
+
+            transition: 0.2s;
         }
 
         .tab:hover {
-            color: #ccff00;
+            color: #ffffff;
+
+            background:
+                rgba(139,92,246,0.08);
         }
 
         .tab.active {
-            color: #ccff00;
-            border-bottom-color: #ccff00;
+
+            color: #ffffff;
+
+            border-bottom-color: #8b5cf6;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(139,92,246,0.20),
+                    transparent
+                );
         }
 
+
+        /* SECTION */
+
         .section-title {
-            font-size: 20px;
-            font-weight: 800;
+
+            font-size: 21px;
+
+            font-weight: 900;
+
             margin-bottom: 18px;
+
+            color: #ffffff;
         }
+
+
+        /* VIDEOS */
 
         .video-list,
         .notes-list {
+
             display: flex;
+
             flex-direction: column;
-            gap: 10px;
+
+            gap: 12px;
         }
 
         .video-item,
         .note-item {
-            background: #0d0f13;
-            border: 1px solid #232932;
-            padding: 17px;
+
+            position: relative;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(30,41,59,0.92),
+                    rgba(15,23,42,0.92)
+                );
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            padding: 18px;
+
+            border-radius: 14px;
+
+            transition:
+                transform 0.2s,
+                border-color 0.2s,
+                box-shadow 0.2s;
+        }
+
+        .video-item::before,
+        .note-item::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 90px;
+            height: 90px;
+
+            right: -35px;
+            top: -35px;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #8b5cf6
+                );
+
+            opacity: 0.10;
+        }
+
+        .video-item:hover,
+        .note-item:hover {
+
+            transform: translateY(-2px);
+
+            border-color:
+                rgba(139,92,246,0.55);
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,0.25);
         }
 
         .video-item {
+
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
+
             gap: 20px;
         }
 
         .video-info {
             min-width: 0;
+
+            position: relative;
+            z-index: 1;
         }
 
         .class-number {
-            color: #ccff00;
-            font-size: 12px;
-            font-weight: 800;
-            margin-bottom: 5px;
+
+            color: #a78bfa;
+
+            font-size: 11px;
+
+            font-weight: 900;
+
+            margin-bottom: 6px;
+
+            letter-spacing: 0.5px;
         }
 
         .video-title,
         .note-title {
+
             font-size: 15px;
-            font-weight: 700;
+
+            font-weight: 800;
+
+            color: #ffffff;
         }
 
         .teacher {
-            color: #7f8997;
+
+            color: #94a3b8;
+
             font-size: 12px;
-            margin-top: 5px;
+
+            margin-top: 6px;
         }
+
+
+        /* WATCH BUTTON */
 
         .watch-btn,
         .note-btn {
+
+            position: relative;
+            z-index: 2;
+
             flex-shrink: 0;
-            border: 1px solid #303742;
-            background: #08090c;
-            color: #f0f4f8;
-            padding: 11px 18px;
+
+            border: 1px solid #4c1d95;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6d28d9,
+                    #7c3aed
+                );
+
+            color: #ffffff;
+
+            padding: 10px 17px;
+
             cursor: pointer;
-            font-size: 12px;
-            font-weight: 800;
+
+            font-size: 11px;
+
+            font-weight: 900;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            transition: 0.2s;
         }
 
         .watch-btn:hover,
         .note-btn:hover {
-            border-color: #ccff00;
-            color: #ccff00;
+
+            transform: translateY(-2px);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7c3aed,
+                    #a855f7
+                );
+
+            box-shadow:
+                0 7px 20px rgba(124,58,237,0.3);
         }
+
+
+        /* OVERVIEW */
 
         .overview {
-            background: #0d0f13;
-            border: 1px solid #232932;
-            padding: 22px;
-            color: #9aa4b2;
-            line-height: 1.7;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(30,41,59,0.90),
+                    rgba(15,23,42,0.90)
+                );
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            padding: 25px;
+
+            border-radius: 15px;
+
+            color: #c0cad8;
+
+            line-height: 1.8;
         }
 
+
+        /* EMPTY */
+
         .empty {
-            background: #0d0f13;
-            border: 1px solid #232932;
-            padding: 25px;
-            color: #7f8997;
+
+            background:
+                rgba(255,255,255,0.03);
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            padding: 30px;
+
+            border-radius: 15px;
+
+            color: #94a3b8;
+
             text-align: center;
         }
+
 
         /* QUALITY POPUP */
 
         .modal-overlay {
+
             display: none;
+
             position: fixed;
+
             inset: 0;
-            background: rgba(0, 0, 0, 0.78);
+
+            background:
+                rgba(2,6,23,0.82);
+
+            backdrop-filter: blur(7px);
+
             z-index: 1000;
+
             align-items: center;
+
             justify-content: center;
+
             padding: 20px;
         }
 
@@ -219,57 +601,108 @@
         }
 
         .quality-modal {
+
             width: 100%;
-            max-width: 360px;
-            background: #0d0f13;
-            border: 1px solid #303742;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+
+            max-width: 380px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #111827,
+                    #0f172a
+                );
+
+            border:
+                1px solid rgba(255,255,255,0.12);
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 25px 80px rgba(0,0,0,0.65);
+
+            overflow: hidden;
         }
 
         .modal-header {
+
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
-            padding: 18px 20px;
-            border-bottom: 1px solid #232932;
+
+            padding: 19px 20px;
+
+            border-bottom:
+                1px solid rgba(255,255,255,0.08);
         }
 
         .modal-title {
-            font-size: 15px;
-            font-weight: 800;
+
+            font-size: 14px;
+
+            font-weight: 900;
+
             text-transform: uppercase;
+
+            color: #ffffff;
         }
 
         .close-btn {
+
             border: 0;
+
             background: transparent;
-            color: #8b95a3;
-            font-size: 22px;
+
+            color: #94a3b8;
+
+            font-size: 23px;
+
             cursor: pointer;
         }
 
         .close-btn:hover {
-            color: #ccff00;
+            color: #f472b6;
         }
 
         .quality-options {
-            padding: 12px;
+            padding: 14px;
         }
 
         .quality-option {
+
             width: 100%;
+
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
+
             padding: 15px;
-            margin-bottom: 8px;
-            border: 1px solid #232932;
-            background: #08090c;
-            color: #f0f4f8;
+
+            margin-bottom: 9px;
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            border-radius: 10px;
+
+            background:
+                rgba(255,255,255,0.04);
+
+            color: #f8fafc;
+
             cursor: pointer;
+
             font-size: 13px;
-            font-weight: 800;
+
+            font-weight: 900;
+
             text-align: left;
+
+            transition: 0.2s;
         }
 
         .quality-option:last-child {
@@ -277,24 +710,43 @@
         }
 
         .quality-option:hover {
-            border-color: #ccff00;
-            color: #ccff00;
+
+            border-color: #8b5cf6;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(124,58,237,0.25),
+                    rgba(168,85,247,0.12)
+                );
+
+            transform: translateX(3px);
         }
 
         .quality-arrow {
-            color: #6f7885;
+            color: #64748b;
         }
 
         .quality-option:hover .quality-arrow {
-            color: #ccff00;
+            color: #c4b5fd;
         }
 
         .modal-footer {
+
             padding: 14px 20px 18px;
-            color: #66707e;
+
+            color: #64748b;
+
             font-size: 11px;
+
             text-align: center;
+
+            border-top:
+                1px solid rgba(255,255,255,0.06);
         }
+
+
+        /* MOBILE */
 
         @media (max-width: 700px) {
 
@@ -303,20 +755,19 @@
             }
 
             .container {
-                padding: 22px 14px 50px;
+                padding: 25px 14px 50px;
             }
 
             .topbar {
-                flex-direction: column;
-                align-items: flex-start;
+                flex-direction: row;
+            }
+
+            .course-header {
+                padding: 24px 20px;
             }
 
             .course-title {
-                font-size: 26px;
-            }
-
-            .tabs {
-                overflow-x: auto;
+                font-size: 27px;
             }
 
             .video-item {
@@ -324,272 +775,451 @@
             }
 
             .watch-btn {
-                padding: 10px 13px;
+                padding: 9px 12px;
             }
+
         }
+
+        @media (max-width: 480px) {
+
+            .back {
+                font-size: 11px;
+                padding: 8px 10px;
+            }
+
+            .course-title {
+                font-size: 25px;
+            }
+
+            .video-item {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .watch-btn {
+                width: 100%;
+            }
+
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
+
 <div class="header">
+
     <div class="topbar">
 
-        <a class="brand" href="/">
+        <a
+            class="brand"
+            href="/">
+
             SelectionDay
+
         </a>
 
-        <a class="back" href="/">
+
+        <a
+            class="back"
+            href="/">
+
             ← Back to Courses
+
         </a>
 
     </div>
+
 </div>
+
 
 <div class="container">
 
-    <div class="course-title">
-        {{ course.name }}
+
+    <div class="course-header">
+
+        <div class="course-title">
+
+            {{ course.name }}
+
+        </div>
+
+
+        <div class="description">
+
+            {{ course.description }}
+
+        </div>
+
+
+        <div class="enroll-area">
+
+            {% if is_enrolled %}
+
+            <form
+                method="POST"
+                action="/unenroll/{{ course.id }}">
+
+                <button
+                    class="unenroll-btn"
+                    type="submit">
+
+                    ✓ ENROLLED
+
+                </button>
+
+            </form>
+
+            {% else %}
+
+            <form
+                method="POST"
+                action="/enroll/{{ course.id }}">
+
+                <button
+                    class="enroll-btn"
+                    type="submit">
+
+                    ENROLL NOW
+
+                </button>
+
+            </form>
+
+            {% endif %}
+
+        </div>
+
     </div>
 
-    <div class="description">
-        {{ course.description }}
-    </div>
-
-    <div class="enroll-area">
-
-        {% if is_enrolled %}
-
-        <form method="POST" action="/unenroll/{{ course.id }}">
-            <button class="unenroll-btn" type="submit">
-                ✓ ENROLLED
-            </button>
-        </form>
-
-        {% else %}
-
-        <form method="POST" action="/enroll/{{ course.id }}">
-            <button class="enroll-btn" type="submit">
-                ENROLL NOW
-            </button>
-        </form>
-
-        {% endif %}
-
-    </div>
 
     <div class="tabs">
+
 
         <a
             class="tab {% if tab == 'overview' %}active{% endif %}"
             href="/course/{{ course.id }}?tab=overview">
+
             OVERVIEW
+
         </a>
+
 
         <a
             class="tab {% if tab == 'videos' %}active{% endif %}"
             href="/course/{{ course.id }}?tab=videos">
+
             VIDEOS
+
         </a>
+
 
         <a
             class="tab {% if tab == 'notes' %}active{% endif %}"
             href="/course/{{ course.id }}?tab=notes">
+
             NOTES
+
         </a>
+
 
     </div>
 
 
     {% if tab == "overview" %}
 
+
         <div class="section-title">
+
             About this course
+
         </div>
 
+
         <div class="overview">
+
             {{ course.description }}
 
             <br><br>
 
             This course contains video classes and study material
             for your preparation.
+
         </div>
 
 
     {% elif tab == "videos" %}
 
+
         <div class="section-title">
+
             Video Classes
+
         </div>
+
 
         {% if videos %}
 
+
         <div class="video-list">
+
 
             {% for video in videos %}
 
+
             <div class="video-item">
+
 
                 <div class="video-info">
 
+
                     <div class="class-number">
+
                         CLASS {{ "%02d"|format(loop.index) }}
+
                     </div>
+
 
                     <div class="video-title">
+
                         {{ video.title }}
+
                     </div>
+
 
                     <div class="teacher">
+
                         {{ video.teacher }}
+
                     </div>
 
+
                 </div>
+
 
                 <button
                     class="watch-btn"
                     type="button"
                     onclick="openQualityPopup({{ loop.index0 }})">
-                    WATCH →
+
+                    ▶ WATCH
+
                 </button>
+
 
             </div>
 
+
             {% endfor %}
 
+
         </div>
+
 
         {% else %}
 
+
         <div class="empty">
+
             No video classes available yet.
+
         </div>
+
 
         {% endif %}
 
 
     {% elif tab == "notes" %}
 
+
         <div class="section-title">
+
             Notes
+
         </div>
+
 
         {% if notes %}
 
+
         <div class="notes-list">
+
 
             {% for note in notes %}
 
+
             <div class="note-item">
 
+
                 <div class="note-title">
+
                     {{ note.title }}
+
                 </div>
 
+
                 <br>
+
 
                 <a
                     class="note-btn"
                     href="{{ note.url }}"
                     target="_blank">
-                    OPEN NOTE →
+
+                    📄 OPEN NOTE →
+
                 </a>
+
 
             </div>
 
+
             {% endfor %}
 
+
         </div>
+
 
         {% else %}
 
+
         <div class="empty">
+
             No notes available yet.
+
         </div>
+
 
         {% endif %}
 
+
     {% endif %}
+
 
 </div>
 
 
+
 <!-- QUALITY POPUP -->
+
 
 <div
     id="qualityModal"
     class="modal-overlay"
     onclick="closeQualityPopup(event)">
 
+
     <div
         class="quality-modal"
         onclick="event.stopPropagation()">
 
+
         <div class="modal-header">
 
+
             <div class="modal-title">
+
                 Select Video Quality
+
             </div>
+
 
             <button
                 class="close-btn"
                 onclick="closeQualityPopup()">
+
                 ×
+
             </button>
+
 
         </div>
 
+
         <div class="quality-options">
+
 
             <button
                 class="quality-option"
                 onclick="openVideo('720p')">
 
-                <span>720P</span>
-                <span class="quality-arrow">→</span>
+                <span>
+                    🎬 720P
+                </span>
+
+                <span class="quality-arrow">
+                    →
+                </span>
 
             </button>
+
 
             <button
                 class="quality-option"
                 onclick="openVideo('480p')">
 
-                <span>480P</span>
-                <span class="quality-arrow">→</span>
+                <span>
+                    🎥 480P
+                </span>
+
+                <span class="quality-arrow">
+                    →
+                </span>
 
             </button>
+
 
             <button
                 class="quality-option"
                 onclick="openVideo('360p')">
 
-                <span>360P</span>
-                <span class="quality-arrow">→</span>
+                <span>
+                    📱 360P
+                </span>
+
+                <span class="quality-arrow">
+                    →
+                </span>
 
             </button>
+
 
             <button
                 class="quality-option"
                 onclick="openVideo('240p')">
 
-                <span>240P</span>
-                <span class="quality-arrow">→</span>
+                <span>
+                    📺 240P
+                </span>
+
+                <span class="quality-arrow">
+                    →
+                </span>
 
             </button>
 
+
         </div>
 
+
         <div class="modal-footer">
+
             Video will open in a new browser tab.
+
         </div>
+
 
     </div>
 
 </div>
 
 
+
 <script>
+
 
     const videosData = {{ videos | tojson }};
 
@@ -600,7 +1230,8 @@
 
         selectedVideoIndex = videoIndex;
 
-        const modal = document.getElementById("qualityModal");
+        const modal =
+            document.getElementById("qualityModal");
 
         modal.classList.add("show");
 
@@ -609,15 +1240,22 @@
 
     function closeQualityPopup(event) {
 
-        if (event && event.target !== event.currentTarget) {
+        if (
+            event &&
+            event.target !== event.currentTarget
+        ) {
+
             return;
+
         }
 
-        const modal = document.getElementById("qualityModal");
+        const modal =
+            document.getElementById("qualityModal");
 
         modal.classList.remove("show");
 
         selectedVideoIndex = null;
+
     }
 
 
@@ -627,40 +1265,58 @@
             return;
         }
 
-        const video = videosData[selectedVideoIndex];
+
+        const video =
+            videosData[selectedVideoIndex];
+
 
         if (
             !video ||
             !video.quality ||
             !video.quality[quality]
         ) {
-            alert("This video quality is not available.");
+
+            alert(
+                "This video quality is not available."
+            );
+
             return;
+
         }
 
-        const url = video.quality[quality];
 
-        /*
-            Open the video in a completely new browser tab.
-            SelectionDay remains open in the original tab.
-        */
+        const url =
+            video.quality[quality];
 
-        window.open(url, "_blank");
+
+        window.open(
+            url,
+            "_blank"
+        );
+
 
         closeQualityPopup();
 
     }
 
 
-    document.addEventListener("keydown", function(event) {
+    document.addEventListener(
+        "keydown",
+        function(event) {
 
-        if (event.key === "Escape") {
-            closeQualityPopup();
+            if (event.key === "Escape") {
+
+                closeQualityPopup();
+
+            }
+
         }
+    );
 
-    });
 
 </script>
 
+
 </body>
+
 </html>
