@@ -2,6 +2,14 @@ from flask import Flask, render_template, request, redirect, make_response
 import sqlite3
 import uuid
 
+from maths_data import (
+    maths_structure,
+    maths_videos,
+    maths_notes,
+    maths_sheets,
+    maths_overview
+)
+
 app = Flask(__name__)
 
 DATABASE = "selectionday.db"
@@ -366,6 +374,16 @@ notes = {
 }
 
 
+
+# =========================================================
+# MATHS DATA
+# =========================================================
+
+videos["maths"] = maths_videos
+notes["maths"] = maths_notes
+
+
+
 # =========================================================
 # HOME
 # =========================================================
@@ -577,7 +595,11 @@ def course(course_id):
             tab=tab,
             videos=course_videos,
             notes=course_notes,
-            is_enrolled=is_enrolled
+            is_enrolled=is_enrolled,
+            maths_structure=maths_structure,
+            maths_notes=maths_notes,
+            maths_sheets=maths_sheets,
+            maths_overview=maths_overview
         )
     )
 
