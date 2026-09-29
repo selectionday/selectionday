@@ -1,0 +1,2415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>{{ course.name }} - SelectionDay</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+
+            background:
+                radial-gradient(
+                    circle at top left,
+                    #172554 0%,
+                    transparent 32%
+                ),
+                radial-gradient(
+                    circle at top right,
+                    #3b0764 0%,
+                    transparent 30%
+                ),
+                #070b14;
+
+            color: #f8fafc;
+            font-family: Arial, sans-serif;
+        }
+
+
+        /* HEADER */
+
+        .header {
+            background: rgba(10, 15, 28, 0.88);
+            backdrop-filter: blur(12px);
+
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+
+            padding: 18px 24px;
+
+            position: sticky;
+            top: 0;
+
+            z-index: 100;
+        }
+
+        .topbar {
+            max-width: 1100px;
+            margin: auto;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 20px;
+        }
+
+        .brand {
+            color: #ffffff;
+
+            font-size: 21px;
+            font-weight: 900;
+
+            text-decoration: none;
+        }
+
+        .brand::before {
+            content: "⚡ ";
+            color: #facc15;
+        }
+
+        .back {
+            color: #cbd5e1;
+
+            text-decoration: none;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            padding: 9px 14px;
+
+            border-radius: 9px;
+
+            background: rgba(255,255,255,0.05);
+
+            transition: 0.2s;
+        }
+
+        .back:hover {
+            color: #ffffff;
+
+            background: rgba(139,92,246,0.2);
+        }
+
+
+        /* MAIN */
+
+        .container {
+            max-width: 1100px;
+
+            margin: auto;
+
+            padding: 40px 24px 70px;
+        }
+
+
+        /* COURSE HEADER */
+
+        .course-header {
+            position: relative;
+
+            overflow: hidden;
+
+            padding: 30px;
+
+            margin-bottom: 28px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(37,99,235,0.22),
+                    rgba(124,58,237,0.20),
+                    rgba(236,72,153,0.12)
+                );
+
+            border: 1px solid rgba(255,255,255,0.10);
+
+            box-shadow:
+                0 15px 45px rgba(0,0,0,0.25);
+        }
+
+        .course-header::after {
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            right: -70px;
+            top: -80px;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #3b82f6,
+                    #a855f7,
+                    #ec4899
+                );
+
+            opacity: 0.20;
+
+            filter: blur(5px);
+        }
+
+        .course-title {
+            position: relative;
+            z-index: 1;
+
+            font-size: 34px;
+
+            font-weight: 900;
+
+            margin-bottom: 10px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #60a5fa,
+                    #a78bfa,
+                    #f472b6
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+        }
+
+        .description {
+            position: relative;
+            z-index: 1;
+
+            color: #c0cad8;
+
+            line-height: 1.65;
+
+            margin-bottom: 22px;
+        }
+
+
+        /* ENROLL */
+
+        .enroll-area {
+            position: relative;
+            z-index: 2;
+
+            margin-bottom: 0;
+        }
+
+        .enroll-btn,
+        .unenroll-btn {
+
+            border: 0;
+
+            padding: 12px 20px;
+
+            font-size: 12px;
+
+            font-weight: 900;
+
+            cursor: pointer;
+
+            border-radius: 9px;
+
+            transition: 0.2s;
+        }
+
+        .enroll-btn {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #22c55e,
+                    #16a34a
+                );
+
+            color: #ffffff;
+
+            box-shadow:
+                0 7px 20px rgba(34,197,94,0.25);
+        }
+
+        .enroll-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 25px rgba(34,197,94,0.35);
+        }
+
+        .unenroll-btn {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #334155,
+                    #1e293b
+                );
+
+            color: #ffffff;
+
+            border: 1px solid #475569;
+        }
+
+        .unenroll-btn:hover {
+            border-color: #ef4444;
+
+            color: #fca5a5;
+        }
+
+
+        /* TABS */
+
+        .tabs {
+
+            display: flex;
+
+            gap: 6px;
+
+            border-bottom:
+                1px solid rgba(255,255,255,0.09);
+
+            margin-bottom: 28px;
+
+            overflow-x: auto;
+        }
+
+        .tab {
+
+            text-decoration: none;
+
+            color: #94a3b8;
+
+            padding: 13px 20px;
+
+            font-size: 12px;
+
+            font-weight: 900;
+
+            border-radius:
+                10px 10px 0 0;
+
+            border-bottom:
+                3px solid transparent;
+
+            white-space: nowrap;
+
+            transition: 0.2s;
+        }
+
+        .tab:hover {
+            color: #ffffff;
+
+            background:
+                rgba(139,92,246,0.08);
+        }
+
+        .tab.active {
+
+            color: #ffffff;
+
+            border-bottom-color: #8b5cf6;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(139,92,246,0.20),
+                    transparent
+                );
+        }
+
+
+        /* SECTION */
+
+        .section-title {
+
+            font-size: 21px;
+
+            font-weight: 900;
+
+            margin-bottom: 18px;
+
+            color: #ffffff;
+        }
+
+
+        /* VIDEOS */
+
+        .video-list,
+        .notes-list {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 12px;
+        }
+
+        .video-item,
+        .note-item {
+
+            position: relative;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(30,41,59,0.92),
+                    rgba(15,23,42,0.92)
+                );
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            padding: 18px;
+
+            border-radius: 14px;
+
+            transition:
+                transform 0.2s,
+                border-color 0.2s,
+                box-shadow 0.2s;
+        }
+
+        .video-item::before,
+        .note-item::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 90px;
+            height: 90px;
+
+            right: -35px;
+            top: -35px;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #8b5cf6
+                );
+
+            opacity: 0.10;
+        }
+
+        .video-item:hover,
+        .note-item:hover {
+
+            transform: translateY(-2px);
+
+            border-color:
+                rgba(139,92,246,0.55);
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,0.25);
+        }
+
+        .video-item {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+        .video-info {
+            min-width: 0;
+
+            position: relative;
+            z-index: 1;
+        }
+
+        .class-number {
+
+            color: #a78bfa;
+
+            font-size: 11px;
+
+            font-weight: 900;
+
+            margin-bottom: 6px;
+
+            letter-spacing: 0.5px;
+        }
+
+        .video-title,
+        .note-title {
+
+            font-size: 15px;
+
+            font-weight: 800;
+
+            color: #ffffff;
+        }
+
+        .teacher {
+
+            color: #94a3b8;
+
+            font-size: 12px;
+
+            margin-top: 6px;
+        }
+
+
+        /* WATCH BUTTON */
+
+        .watch-btn,
+        .note-btn {
+
+            position: relative;
+            z-index: 2;
+
+            flex-shrink: 0;
+
+            border: 1px solid #4c1d95;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6d28d9,
+                    #7c3aed
+                );
+
+            color: #ffffff;
+
+            padding: 10px 17px;
+
+            cursor: pointer;
+
+            font-size: 11px;
+
+            font-weight: 900;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            transition: 0.2s;
+        }
+
+        .watch-btn:hover,
+        .note-btn:hover {
+
+            transform: translateY(-2px);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7c3aed,
+                    #a855f7
+                );
+
+            box-shadow:
+                0 7px 20px rgba(124,58,237,0.3);
+        }
+
+
+        /* OVERVIEW */
+
+        .overview {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(30,41,59,0.90),
+                    rgba(15,23,42,0.90)
+                );
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            padding: 25px;
+
+            border-radius: 15px;
+
+            color: #c0cad8;
+
+            line-height: 1.8;
+        }
+
+
+        /* EMPTY */
+
+        .empty {
+
+            background:
+                rgba(255,255,255,0.03);
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            padding: 30px;
+
+            border-radius: 15px;
+
+            color: #94a3b8;
+
+            text-align: center;
+        }
+
+
+        /* QUALITY POPUP */
+
+        .modal-overlay {
+
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                rgba(2,6,23,0.82);
+
+            backdrop-filter: blur(7px);
+
+            z-index: 1000;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .quality-modal {
+
+            width: 100%;
+
+            max-width: 380px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #111827,
+                    #0f172a
+                );
+
+            border:
+                1px solid rgba(255,255,255,0.12);
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 25px 80px rgba(0,0,0,0.65);
+
+            overflow: hidden;
+        }
+
+        .modal-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 19px 20px;
+
+            border-bottom:
+                1px solid rgba(255,255,255,0.08);
+        }
+
+        .modal-title {
+
+            font-size: 14px;
+
+            font-weight: 900;
+
+            text-transform: uppercase;
+
+            color: #ffffff;
+        }
+
+        .close-btn {
+
+            border: 0;
+
+            background: transparent;
+
+            color: #94a3b8;
+
+            font-size: 23px;
+
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: #f472b6;
+        }
+
+        .quality-options {
+            padding: 14px;
+        }
+
+        .quality-option {
+
+            width: 100%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 15px;
+
+            margin-bottom: 9px;
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            border-radius: 10px;
+
+            background:
+                rgba(255,255,255,0.04);
+
+            color: #f8fafc;
+
+            cursor: pointer;
+
+            font-size: 13px;
+
+            font-weight: 900;
+
+            text-align: left;
+
+            transition: 0.2s;
+        }
+
+        .quality-option:last-child {
+            margin-bottom: 0;
+        }
+
+        .quality-option:hover {
+
+            border-color: #8b5cf6;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(124,58,237,0.25),
+                    rgba(168,85,247,0.12)
+                );
+
+            transform: translateX(3px);
+        }
+
+        .quality-arrow {
+            color: #64748b;
+        }
+
+        .quality-option:hover .quality-arrow {
+            color: #c4b5fd;
+        }
+
+        .modal-footer {
+
+            padding: 14px 20px 18px;
+
+            color: #64748b;
+
+            font-size: 11px;
+
+            text-align: center;
+
+            border-top:
+                1px solid rgba(255,255,255,0.06);
+        }
+
+
+        /* MATHS BATCH NAVIGATION */
+
+        .maths-search-box,
+        .maths-notes-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
+            margin-top: 18px;
+        }
+
+        .maths-notes-card {
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 18px;
+            overflow: hidden;
+            background: rgba(255,255,255,0.035);
+        }
+
+        .maths-notes-card-header {
+            width: 100%;
+            border: 0;
+            cursor: pointer;
+            color: inherit;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 20px;
+            background: linear-gradient(
+                135deg,
+                rgba(255,255,255,0.07),
+                rgba(255,255,255,0.025)
+            );
+        }
+
+        .maths-notes-card-header:hover {
+            background: rgba(255,255,255,0.08);
+        }
+
+        .maths-notes-card-content {
+            display: none;
+            padding: 0 18px 18px;
+        }
+
+        .maths-notes-card.open .maths-notes-card-content {
+            display: block;
+        }
+
+        .maths-notes-card.open .maths-notes-card-header .maths-section-arrow {
+            transform: rotate(180deg);
+        }
+
+        .maths-notes-card-header .maths-section-arrow {
+            transition: transform 0.2s ease;
+        }
+
+        @media (min-width: 760px) {
+            .maths-notes-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        .notes-search-box {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .maths-search-input,
+        .notes-search-input {
+            width: 100%;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(15,23,42,0.88);
+            color: #ffffff;
+            border-radius: 12px;
+            padding: 13px 15px;
+            outline: none;
+            font-size: 13px;
+        }
+
+        .maths-search-input:focus,
+        .notes-search-input:focus {
+            border-color: rgba(139,92,246,0.75);
+            box-shadow: 0 0 0 3px rgba(139,92,246,0.10);
+        }
+
+        .maths-clear-btn,
+        .notes-clear-btn {
+            flex: 0 0 auto;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.05);
+            color: #cbd5e1;
+            border-radius: 10px;
+            padding: 11px 14px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 900;
+        }
+
+        .maths-clear-btn:hover,
+        .notes-clear-btn:hover {
+            border-color: #8b5cf6;
+            color: #ffffff;
+        }
+
+        .maths-search-meta,
+        .notes-search-meta {
+            color: #64748b;
+            font-size: 11px;
+            margin: -6px 0 16px;
+        }
+
+        .maths-batch-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin-bottom: 22px;
+        }
+
+        .maths-batch-card {
+            border: 1px solid rgba(255,255,255,0.10);
+            background: linear-gradient(135deg, rgba(37,99,235,0.16), rgba(15,23,42,0.95));
+            color: #ffffff;
+            border-radius: 16px;
+            padding: 20px;
+            cursor: pointer;
+            text-align: left;
+            transition: 0.2s;
+        }
+
+        .maths-batch-card:hover,
+        .maths-batch-card.active {
+            border-color: #8b5cf6;
+            background: linear-gradient(135deg, rgba(124,58,237,0.24), rgba(15,23,42,0.98));
+            transform: translateY(-2px);
+        }
+
+        .maths-batch-name {
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 0.4px;
+        }
+
+        .maths-batch-subtitle {
+            margin-top: 7px;
+            color: #94a3b8;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .maths-batch-panel {
+            display: none;
+        }
+
+        .maths-batch-panel.show {
+            display: block;
+        }
+
+        .maths-section {
+            margin-top: 12px;
+        }
+
+        .maths-section:first-child {
+            margin-top: 0;
+        }
+
+        .maths-section-header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 15px 16px;
+            border: 1px solid rgba(139,92,246,0.22);
+            border-radius: 12px;
+            background: rgba(124,58,237,0.08);
+            color: #ffffff;
+            cursor: pointer;
+            text-align: left;
+            transition: 0.2s;
+        }
+
+        .maths-section-header:hover,
+        .maths-section-header.active {
+            border-color: rgba(139,92,246,0.65);
+            background: rgba(124,58,237,0.14);
+        }
+
+        .maths-section-title {
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 900;
+        }
+
+        .maths-section-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .maths-section-count {
+            color: #a78bfa;
+            font-size: 11px;
+            font-weight: 900;
+            white-space: nowrap;
+        }
+
+        .maths-section-arrow {
+            color: #94a3b8;
+            font-size: 13px;
+            transition: transform 0.2s;
+        }
+
+        .maths-section-header.active .maths-section-arrow {
+            transform: rotate(180deg);
+        }
+
+        .maths-section-content {
+            display: none;
+            padding-top: 12px;
+        }
+
+        .maths-section-content.show {
+            display: block;
+        }
+
+        .maths-empty {
+            padding: 16px;
+            border: 1px dashed rgba(255,255,255,0.12);
+            border-radius: 12px;
+            color: #94a3b8;
+            font-size: 12px;
+            line-height: 1.6;
+            background: rgba(255,255,255,0.025);
+        }
+
+        .maths-overview-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 22px;
+        }
+
+        .maths-overview-card {
+            padding: 16px;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 13px;
+            background: rgba(15,23,42,0.72);
+        }
+
+        .maths-overview-value {
+            font-size: 20px;
+            font-weight: 900;
+            color: #ffffff;
+        }
+
+        .maths-overview-label {
+            margin-top: 5px;
+            color: #94a3b8;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .maths-overview-structure {
+            margin-top: 18px;
+            padding: 18px;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+            background: rgba(15,23,42,0.60);
+        }
+
+        .maths-overview-structure h3 {
+            margin: 0 0 12px;
+            font-size: 14px;
+        }
+
+        .maths-overview-structure p {
+            margin: 7px 0;
+            color: #cbd5e1;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .note-meta {
+            color: #64748b;
+            font-size: 10px;
+            margin-top: 7px;
+            line-height: 1.5;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            .header {
+                padding: 15px;
+            }
+
+            .container {
+                padding: 25px 14px 50px;
+            }
+
+            .topbar {
+                flex-direction: row;
+            }
+
+            .course-header {
+                padding: 24px 20px;
+            }
+
+            .course-title {
+                font-size: 27px;
+            }
+
+            .video-item {
+                align-items: flex-start;
+            }
+
+            .maths-batch-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .maths-overview-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .maths-search-box,
+            .notes-search-box {
+                align-items: stretch;
+            }
+
+            .maths-search-input,
+            .notes-search-input {
+                min-width: 0;
+            }
+
+            .watch-btn {
+                padding: 9px 12px;
+            }
+
+        }
+
+        @media (max-width: 480px) {
+
+            .back {
+                font-size: 11px;
+                padding: 8px 10px;
+            }
+
+            .course-title {
+                font-size: 25px;
+            }
+
+            .video-item {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .watch-btn {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="header">
+
+    <div class="topbar">
+
+        <a
+            class="brand"
+            href="/">
+
+            SelectionDay
+
+        </a>
+
+
+        <a
+            class="back"
+            href="/">
+
+            ← Back to Courses
+
+        </a>
+
+    </div>
+
+</div>
+
+
+<div class="container">
+
+
+    <div class="course-header">
+
+        <div class="course-title">
+
+            {{ course.name }}
+
+        </div>
+
+
+        <div class="description">
+
+            {{ course.description }}
+
+        </div>
+
+
+        <div class="enroll-area">
+
+            {% if is_enrolled %}
+
+            <form
+                method="POST"
+                action="/unenroll/{{ course.id }}">
+
+                <button
+                    class="unenroll-btn"
+                    type="submit">
+
+                    ✓ ENROLLED
+
+                </button>
+
+            </form>
+
+            {% else %}
+
+            <form
+                method="POST"
+                action="/enroll/{{ course.id }}">
+
+                <button
+                    class="enroll-btn"
+                    type="submit">
+
+                    ENROLL NOW
+
+                </button>
+
+            </form>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <div class="tabs">
+
+
+        <a
+            class="tab {% if tab == 'overview' %}active{% endif %}"
+            href="/course/{{ course.id }}?tab=overview">
+
+            OVERVIEW
+
+        </a>
+
+
+        <a
+            class="tab {% if tab == 'videos' %}active{% endif %}"
+            href="/course/{{ course.id }}?tab=videos">
+
+            VIDEOS
+
+        </a>
+
+
+        <a
+            class="tab {% if tab == 'notes' %}active{% endif %}"
+            href="/course/{{ course.id }}?tab=notes">
+
+            NOTES
+
+        </a>
+
+
+    </div>
+
+
+    {% if tab == "overview" %}
+
+        <div class="section-title">
+            About this course
+        </div>
+
+        <div class="overview">
+            {{ course.description }}
+
+            <br><br>
+
+            Maths classes are organised into AARAMBH BATCH and
+            SELECTION BATCH [Zero to Hero Batch], with separate topic sections.
+        </div>
+
+        {% if course.id == "maths" %}
+
+            <div class="maths-overview-grid">
+
+                <div class="maths-overview-card">
+                    <div class="maths-overview-value">{{ maths_overview.total_classes }}</div>
+                    <div class="maths-overview-label">Total Classes</div>
+                </div>
+
+                <div class="maths-overview-card">
+                    <div class="maths-overview-value">{{ maths_overview.playable_classes }}</div>
+                    <div class="maths-overview-label">Video Recordings</div>
+                </div>
+
+                <div class="maths-overview-card">
+                    <div class="maths-overview-value">{{ maths_overview.notes }}</div>
+                    <div class="maths-overview-label">PDF Notes</div>
+                </div>
+
+                <div class="maths-overview-card">
+                    <div class="maths-overview-value">{{ maths_overview.faculty }}</div>
+                    <div class="maths-overview-label">Faculty</div>
+                </div>
+
+            </div>
+
+            <div class="maths-overview-structure">
+                <h3>Course Structure</h3>
+                <p><strong>AARAMBH BATCH:</strong> Arithmetic • Number System • Advance</p>
+                <p><strong>SELECTION BATCH [Zero to Hero Batch]:</strong> Arithmetic • Number System & More • Advance • Calculation Trick</p>
+                <p><strong>Additional Material:</strong> Mock Tests • Important Message</p>
+            </div>
+
+        {% endif %}
+
+    {% elif tab == "videos" %}
+
+        <div class="section-title">
+            Video Classes
+        </div>
+
+        {% if course.id == "maths" %}
+
+            <div class="maths-search-box">
+                <input
+                    id="mathsLectureSearch"
+                    class="maths-search-input"
+                    type="search"
+                    placeholder="Search lectures by class, topic, teacher or batch..."
+                    autocomplete="off">
+                <button id="mathsSearchClear" class="maths-clear-btn" type="button">CLEAR</button>
+            </div>
+
+            <div id="mathsSearchMeta" class="maths-search-meta"></div>
+            <div id="mathsSearchResults" class="video-list" style="display:none;"></div>
+
+            <div id="mathsBrowseArea">
+
+                <div class="maths-batch-grid">
+
+                    <button class="maths-batch-card" type="button" data-batch-target="aaramb">
+                        <div class="maths-batch-name">AARAMBH BATCH</div>
+                        <div class="maths-batch-subtitle">Arithmetic • Number System • Advance</div>
+                    </button>
+
+                    <button class="maths-batch-card" type="button" data-batch-target="selection">
+                        <div class="maths-batch-name">SELECTION BATCH [Zero to Hero Batch]</div>
+                        <div class="maths-batch-subtitle">Arithmetic • Number System & More • Advance • Calculation Trick</div>
+                    </button>
+
+                </div>
+
+                <div id="mathsPanelAaramb" class="maths-batch-panel">
+                    {% for section_name in ["Arithmetic", "Number System", "Advance"] %}
+                        {% set section_videos = maths_structure["AARAMBH BATCH"][section_name] %}
+                        <div class="maths-section" data-section-name="{{ section_name }}">
+                            <button class="maths-section-header" type="button">
+                                <span class="maths-section-title">{{ section_name }}</span>
+                                <span class="maths-section-right">
+                                    <span class="maths-section-count">{{ section_videos|length }} CLASSES</span>
+                                    <span class="maths-section-arrow">▼</span>
+                                </span>
+                            </button>
+                            <div class="maths-section-content">
+                                {% if section_videos %}
+                                    <div class="video-list">
+                                        {% for video in section_videos %}
+                                            <div class="video-item">
+                                                <div class="video-info">
+                                                    <div class="class-number">CLASS {{ "%02d"|format(loop.index) }}</div>
+                                                    <div class="video-title">{{ video.title }}</div>
+                                                    <div class="teacher">{{ video.teacher }}</div>
+                                                </div>
+                                                {% if video.quality %}
+                                                    <button class="watch-btn" type="button" onclick="openQualityPopup({{ video.video_index }})">▶ WATCH</button>
+                                                {% else %}
+                                                    <button class="watch-btn" type="button" disabled>NO RECORDING</button>
+                                                {% endif %}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <div class="maths-empty">No classes available in this section.</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div id="mathsPanelSelection" class="maths-batch-panel">
+                    {% for section_name in ["Arithmetic", "Number System & More", "Advance", "Calculation Trick"] %}
+                        {% set section_videos = maths_structure["SELECTION BATCH [Zero to Hero Batch]"][section_name] %}
+                        <div class="maths-section" data-section-name="{{ section_name }}">
+                            <button class="maths-section-header" type="button">
+                                <span class="maths-section-title">{{ section_name }}</span>
+                                <span class="maths-section-right">
+                                    <span class="maths-section-count">{{ section_videos|length }} CLASSES</span>
+                                    <span class="maths-section-arrow">▼</span>
+                                </span>
+                            </button>
+                            <div class="maths-section-content">
+                                {% if section_videos %}
+                                    <div class="video-list">
+                                        {% for video in section_videos %}
+                                            <div class="video-item">
+                                                <div class="video-info">
+                                                    <div class="class-number">CLASS {{ "%02d"|format(loop.index) }}</div>
+                                                    <div class="video-title">{{ video.title }}</div>
+                                                    <div class="teacher">{{ video.teacher }}</div>
+                                                </div>
+                                                {% if video.quality %}
+                                                    <button class="watch-btn" type="button" onclick="openQualityPopup({{ video.video_index }})">▶ WATCH</button>
+                                                {% else %}
+                                                    <button class="watch-btn" type="button" disabled>NO RECORDING</button>
+                                                {% endif %}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <div class="maths-empty">No classes available in this section in the uploaded source.</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="maths-section" style="margin-top:24px;">
+                    <button class="maths-section-header" type="button" data-extra-toggle>
+                        <span class="maths-section-title">Additional Material</span>
+                        <span class="maths-section-right">
+                            <span class="maths-section-count">41 ITEMS</span>
+                            <span class="maths-section-arrow">▼</span>
+                        </span>
+                    </button>
+                    <div class="maths-section-content">
+                        {% for section_name in ["Mock Tests", "Important Message"] %}
+                            {% set section_videos = maths_structure["ADDITIONAL MATERIAL"][section_name] %}
+                            <div class="maths-section" data-section-name="{{ section_name }}">
+                                <button class="maths-section-header" type="button">
+                                    <span class="maths-section-title">{{ section_name }}</span>
+                                    <span class="maths-section-right">
+                                        <span class="maths-section-count">{{ section_videos|length }} CLASSES</span>
+                                        <span class="maths-section-arrow">▼</span>
+                                    </span>
+                                </button>
+                                <div class="maths-section-content">
+                                    <div class="video-list">
+                                        {% for video in section_videos %}
+                                            <div class="video-item">
+                                                <div class="video-info">
+                                                    <div class="class-number">CLASS {{ "%02d"|format(loop.index) }}</div>
+                                                    <div class="video-title">{{ video.title }}</div>
+                                                    <div class="teacher">{{ video.teacher }}</div>
+                                                </div>
+                                                {% if video.quality %}
+                                                    <button class="watch-btn" type="button" onclick="openQualityPopup({{ video.video_index }})">▶ WATCH</button>
+                                                {% else %}
+                                                    <button class="watch-btn" type="button" disabled>NO RECORDING</button>
+                                                {% endif %}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+
+        {% elif videos %}
+
+            <div class="video-list">
+                {% for video in videos %}
+                    <div class="video-item">
+                        <div class="video-info">
+                            <div class="class-number">CLASS {{ "%02d"|format(loop.index) }}</div>
+                            <div class="video-title">{{ video.title }}</div>
+                            <div class="teacher">{{ video.teacher }}</div>
+                        </div>
+                        <button class="watch-btn" type="button" onclick="openQualityPopup({{ loop.index0 }})">▶ WATCH</button>
+                    </div>
+                {% endfor %}
+            </div>
+
+        {% else %}
+
+            <div class="empty">
+                No video classes available yet.
+            </div>
+
+        {% endif %}
+
+    {% elif tab == "notes" %}
+
+        <div class="section-title">
+            Notes
+        </div>
+
+        {% if course.id == "maths" %}
+
+            <div class="maths-notes-grid">
+
+                <section class="maths-notes-card">
+
+                    <button
+                        class="maths-notes-card-header"
+                        type="button"
+                        data-notes-target="class-notes">
+
+                        <div>
+                            <div class="maths-batch-name">CLASS NOTES PDFs</div>
+                            <div class="maths-batch-subtitle">
+                                All class PDFs • Search by class, topic or batch
+                            </div>
+                        </div>
+
+                        <span class="maths-section-arrow">▼</span>
+
+                    </button>
+
+                    <div class="maths-notes-card-content" id="class-notes">
+
+                        <div class="notes-search-box">
+                            <input
+                                id="mathsClassNotesSearch"
+                                class="notes-search-input"
+                                type="search"
+                                placeholder="Search class notes..."
+                                autocomplete="off">
+                            <button
+                                id="mathsClassNotesClear"
+                                class="notes-clear-btn"
+                                type="button">CLEAR</button>
+                        </div>
+
+                        <div id="mathsClassNotesMeta" class="notes-search-meta"></div>
+
+                        <div class="notes-list" id="classNotesList">
+
+                            {% for note in maths_notes %}
+
+                                <div
+                                    class="note-item"
+                                    data-note-search="{{ (note.title ~ ' ' ~ note.topic ~ ' ' ~ note.class_title ~ ' ' ~ note.batch ~ ' ' ~ note.section)|lower }}">
+
+                                    <div class="note-title">
+                                        {{ note.title }}
+                                    </div>
+
+                                    <div class="note-meta">
+                                        {{ note.batch }} • {{ note.section }} • {{ note.topic }}
+                                        {% if note.class_title %} • {{ note.class_title }}{% endif %}
+                                    </div>
+
+                                    <br>
+
+                                    <a
+                                        class="note-btn"
+                                        href="{{ note.url }}"
+                                        target="_blank">
+                                        📄 OPEN NOTE →
+                                    </a>
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <section class="maths-notes-card">
+
+                    <button
+                        class="maths-notes-card-header"
+                        type="button"
+                        data-notes-target="maths-sheets">
+
+                        <div>
+                            <div class="maths-batch-name">SHEETS</div>
+                            <div class="maths-batch-subtitle">
+                                All Maths sheets • Search by sheet or topic
+                            </div>
+                        </div>
+
+                        <span class="maths-section-arrow">▼</span>
+
+                    </button>
+
+                    <div class="maths-notes-card-content" id="maths-sheets">
+
+                        <div class="notes-search-box">
+                            <input
+                                id="mathsSheetsSearch"
+                                class="notes-search-input"
+                                type="search"
+                                placeholder="Search sheets..."
+                                autocomplete="off">
+                            <button
+                                id="mathsSheetsClear"
+                                class="notes-clear-btn"
+                                type="button">CLEAR</button>
+                        </div>
+
+                        <div id="mathsSheetsMeta" class="notes-search-meta"></div>
+
+                        <div class="notes-list" id="sheetsList">
+
+                            {% for sheet in maths_sheets %}
+
+                                <div
+                                    class="note-item"
+                                    data-sheet-search="{{ (sheet.title ~ ' ' ~ sheet.topic ~ ' ' ~ sheet.category)|lower }}">
+
+                                    <div class="note-title">
+                                        {{ sheet.title }}
+                                    </div>
+
+                                    <div class="note-meta">
+                                        {{ sheet.topic }}
+                                    </div>
+
+                                    <br>
+
+                                    <a
+                                        class="note-btn"
+                                        href="{{ sheet.url }}"
+                                        target="_blank">
+                                        📄 OPEN SHEET →
+                                    </a>
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        {% else %}
+
+            {% if notes %}
+
+                <div class="notes-list" id="notesList">
+
+                    {% for note in notes %}
+
+                        <div class="note-item">
+
+                            <div class="note-title">
+                                {{ note.title }}
+                            </div>
+
+                            <br>
+
+                            <a
+                                class="note-btn"
+                                href="{{ note.url }}"
+                                target="_blank">
+                                📄 OPEN NOTE →
+                            </a>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="empty">
+                    No notes available yet.
+                </div>
+
+            {% endif %}
+
+        {% endif %}
+
+
+    {% endif %}
+
+
+
+</div>
+
+
+
+<!-- QUALITY POPUP -->
+
+
+<div
+    id="qualityModal"
+    class="modal-overlay"
+    onclick="closeQualityPopup(event)">
+
+
+    <div
+        class="quality-modal"
+        onclick="event.stopPropagation()">
+
+
+        <div class="modal-header">
+
+
+            <div class="modal-title">
+
+                Select Video Quality
+
+            </div>
+
+
+            <button
+                class="close-btn"
+                onclick="closeQualityPopup()">
+
+                ×
+
+            </button>
+
+
+        </div>
+
+
+        <div class="quality-options">
+
+
+            <button
+                class="quality-option"
+                onclick="openVideo('720p')">
+
+                <span>
+                    🎬 720P
+                </span>
+
+                <span class="quality-arrow">
+                    →
+                </span>
+
+            </button>
+
+
+            <button
+                class="quality-option"
+                onclick="openVideo('480p')">
+
+                <span>
+                    🎥 480P
+                </span>
+
+                <span class="quality-arrow">
+                    →
+                </span>
+
+            </button>
+
+
+            <button
+                class="quality-option"
+                onclick="openVideo('360p')">
+
+                <span>
+                    📱 360P
+                </span>
+
+                <span class="quality-arrow">
+                    →
+                </span>
+
+            </button>
+
+
+            <button
+                class="quality-option"
+                onclick="openVideo('240p')">
+
+                <span>
+                    📺 240P
+                </span>
+
+                <span class="quality-arrow">
+                    →
+                </span>
+
+            </button>
+
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            Video will open in a new browser tab.
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+
+<script>
+
+    const videosData = {{ videos | tojson }};
+
+    let selectedVideoIndex = null;
+
+    function openQualityPopup(videoIndex) {
+        selectedVideoIndex = videoIndex;
+
+        const modal = document.getElementById("qualityModal");
+
+        if (modal) {
+            modal.classList.add("show");
+        }
+    }
+
+    function closeQualityPopup(event) {
+        if (
+            event &&
+            event.target !== event.currentTarget
+        ) {
+            return;
+        }
+
+        const modal = document.getElementById("qualityModal");
+
+        if (modal) {
+            modal.classList.remove("show");
+        }
+
+        selectedVideoIndex = null;
+    }
+
+    function openVideo(quality) {
+        if (selectedVideoIndex === null) {
+            return;
+        }
+
+        const video = videosData[selectedVideoIndex];
+
+        if (
+            !video ||
+            !video.quality ||
+            !video.quality[quality] ||
+            video.quality[quality] === "#"
+        ) {
+            alert("This video quality is not available.");
+            return;
+        }
+
+        window.open(video.quality[quality], "_blank");
+        closeQualityPopup();
+    }
+
+    /*
+     * =========================================================
+     * MATHS VIDEO BROWSING
+     * =========================================================
+     */
+
+    const mathsBatchButtons =
+        document.querySelectorAll("[data-batch-target]");
+
+    const mathsAarambPanel =
+        document.getElementById("mathsPanelAaramb");
+
+    const mathsSelectionPanel =
+        document.getElementById("mathsPanelSelection");
+
+    const mathsSearchInput =
+        document.getElementById("mathsLectureSearch");
+
+    const mathsSearchClear =
+        document.getElementById("mathsSearchClear");
+
+    const mathsSearchResults =
+        document.getElementById("mathsSearchResults");
+
+    const mathsBrowseArea =
+        document.getElementById("mathsBrowseArea");
+
+    const mathsSearchMeta =
+        document.getElementById("mathsSearchMeta");
+
+    function hideMathsPanels() {
+        [mathsAarambPanel, mathsSelectionPanel].forEach(function(panel) {
+            if (panel) {
+                panel.classList.remove("show");
+            }
+        });
+
+        mathsBatchButtons.forEach(function(button) {
+            button.classList.remove("active");
+        });
+    }
+
+    function openMathsBatch(target) {
+        hideMathsPanels();
+
+        if (target === "aaramb" && mathsAarambPanel) {
+            mathsAarambPanel.classList.add("show");
+
+            mathsBatchButtons.forEach(function(button) {
+                if (button.dataset.batchTarget === "aaramb") {
+                    button.classList.add("active");
+                }
+            });
+        }
+
+        if (target === "selection" && mathsSelectionPanel) {
+            mathsSelectionPanel.classList.add("show");
+
+            mathsBatchButtons.forEach(function(button) {
+                if (button.dataset.batchTarget === "selection") {
+                    button.classList.add("active");
+                }
+            });
+        }
+    }
+
+    mathsBatchButtons.forEach(function(button) {
+        button.addEventListener("click", function() {
+            const target = button.dataset.batchTarget;
+
+            if (target) {
+                openMathsBatch(target);
+            }
+        });
+    });
+
+    /*
+     * Each topic is an accordion, but only ONE topic is visible
+     * at a time after the user selects it.
+     */
+    document.querySelectorAll(".maths-batch-panel").forEach(function(panel) {
+
+        const sections = panel.querySelectorAll(".maths-section");
+
+        sections.forEach(function(section) {
+
+            const header =
+                section.querySelector(".maths-section-header");
+
+            const content =
+                section.querySelector(".maths-section-content");
+
+            if (!header || !content) {
+                return;
+            }
+
+            header.addEventListener("click", function() {
+
+                const wasOpen =
+                    content.classList.contains("show");
+
+                sections.forEach(function(otherSection) {
+
+                    const otherHeader =
+                        otherSection.querySelector(".maths-section-header");
+
+                    const otherContent =
+                        otherSection.querySelector(".maths-section-content");
+
+                    if (otherContent) {
+                        otherContent.classList.remove("show");
+                    }
+
+                    if (otherHeader) {
+                        otherHeader.classList.remove("active");
+                    }
+
+                });
+
+                if (!wasOpen) {
+                    content.classList.add("show");
+                    header.classList.add("active");
+
+                    section.scrollIntoView({
+                        behavior: "smooth",
+                        block: "nearest"
+                    });
+                }
+
+            });
+
+        });
+
+    });
+
+    /*
+     * Additional Material:
+     * The outer card opens first, then Mock Tests / Important Message
+     * work as their own accordion items.
+     */
+    const extraToggle =
+        document.querySelector("[data-extra-toggle]");
+
+    if (extraToggle) {
+
+        const extraContent =
+            extraToggle.nextElementSibling;
+
+        extraToggle.addEventListener("click", function() {
+
+            if (!extraContent) {
+                return;
+            }
+
+            const wasOpen =
+                extraContent.classList.contains("show");
+
+            extraContent.classList.toggle("show", !wasOpen);
+            extraToggle.classList.toggle("active", !wasOpen);
+
+            if (!wasOpen) {
+                extraToggle.scrollIntoView({
+                    behavior: "smooth",
+                    block: "nearest"
+                });
+            }
+
+        });
+
+        /* Make Mock Tests and Important Message clickable. */
+        extraContent.querySelectorAll(
+            ".maths-section[data-section-name]"
+        ).forEach(function(section) {
+
+            const header =
+                section.querySelector(":scope > .maths-section-header");
+
+            const content =
+                section.querySelector(":scope > .maths-section-content");
+
+            if (!header || !content) {
+                return;
+            }
+
+            header.addEventListener("click", function() {
+
+                const wasOpen =
+                    content.classList.contains("show");
+
+                extraContent.querySelectorAll(
+                    ":scope > .maths-section"
+                ).forEach(function(otherSection) {
+
+                    const otherHeader =
+                        otherSection.querySelector(":scope > .maths-section-header");
+
+                    const otherContent =
+                        otherSection.querySelector(":scope > .maths-section-content");
+
+                    if (otherContent) {
+                        otherContent.classList.remove("show");
+                    }
+
+                    if (otherHeader) {
+                        otherHeader.classList.remove("active");
+                    }
+
+                });
+
+                if (!wasOpen) {
+                    content.classList.add("show");
+                    header.classList.add("active");
+                    extraContent.classList.add("show");
+                    extraToggle.classList.add("active");
+
+                    section.scrollIntoView({
+                        behavior: "smooth",
+                        block: "nearest"
+                    });
+                }
+
+            });
+
+        });
+
+    }
+
+    /*
+     * Lecture search:
+     * Search the already-rendered Maths classes, without changing
+     * the underlying data or class numbering.
+     */
+    function runMathsLectureSearch() {
+
+        if (!mathsSearchInput) {
+            return;
+        }
+
+        const query =
+            mathsSearchInput.value.trim().toLowerCase();
+
+        const items =
+            document.querySelectorAll(
+                "#mathsBrowseArea .video-item"
+            );
+
+        let visible = 0;
+
+        items.forEach(function(item) {
+
+            const text =
+                item.textContent.toLowerCase();
+
+            const matches =
+                !query || text.includes(query);
+
+            item.style.display =
+                matches ? "" : "none";
+
+            if (matches) {
+                visible += 1;
+            }
+
+        });
+
+        if (mathsSearchResults) {
+            mathsSearchResults.style.display =
+                query ? "none" : "none";
+        }
+
+        if (mathsBrowseArea) {
+            mathsBrowseArea.style.display = "block";
+        }
+
+        /*
+         * When searching, automatically open every topic containing
+         * a matching class and hide topics with no match.
+         */
+        document.querySelectorAll(
+            "#mathsBrowseArea .maths-section"
+        ).forEach(function(section) {
+
+            const matchingItems =
+                Array.from(
+                    section.querySelectorAll(".video-item")
+                ).filter(function(item) {
+                    return item.style.display !== "none";
+                });
+
+            const header =
+                section.querySelector(".maths-section-header");
+
+            const content =
+                section.querySelector(".maths-section-content");
+
+            if (!query) {
+                section.style.display = "";
+                return;
+            }
+
+            if (matchingItems.length > 0) {
+                section.style.display = "";
+
+                if (content) {
+                    content.classList.add("show");
+                }
+
+                if (header) {
+                    header.classList.add("active");
+                }
+            } else {
+                section.style.display = "none";
+            }
+
+        });
+
+        /*
+         * Show both batch panels while a search is active so that
+         * results from both AARAMBH and SELECTION can be found.
+         */
+        if (query) {
+
+            [mathsAarambPanel, mathsSelectionPanel].forEach(function(panel) {
+                if (panel) {
+                    panel.classList.add("show");
+                }
+            });
+
+            mathsBatchButtons.forEach(function(button) {
+                button.classList.remove("active");
+            });
+
+        }
+
+        if (mathsSearchMeta) {
+
+            mathsSearchMeta.textContent =
+                query
+                    ? visible + " lecture" + (visible === 1 ? "" : "s") + " found"
+                    : "Choose a batch, then choose a topic to view its classes.";
+
+        }
+
+    }
+
+    if (mathsSearchInput) {
+
+        mathsSearchInput.addEventListener(
+            "input",
+            runMathsLectureSearch
+        );
+
+    }
+
+    if (mathsSearchClear) {
+
+        mathsSearchClear.addEventListener(
+            "click",
+            function() {
+
+                mathsSearchInput.value = "";
+
+                document.querySelectorAll(
+                    "#mathsBrowseArea .video-item"
+                ).forEach(function(item) {
+                    item.style.display = "";
+                });
+
+                document.querySelectorAll(
+                    "#mathsBrowseArea .maths-section"
+                ).forEach(function(section) {
+                    section.style.display = "";
+
+                    const content =
+                        section.querySelector(".maths-section-content");
+
+                    const header =
+                        section.querySelector(".maths-section-header");
+
+                    if (content) {
+                        content.classList.remove("show");
+                    }
+
+                    if (header) {
+                        header.classList.remove("active");
+                    }
+                });
+
+                hideMathsPanels();
+
+                if (mathsSearchMeta) {
+                    mathsSearchMeta.textContent =
+                        "Choose a batch, then choose a topic to view its classes.";
+                }
+
+                mathsSearchInput.focus();
+
+            }
+        );
+
+    }
+
+    /*
+     * =========================================================
+     * MATHS NOTES / SHEETS SEARCH
+     * =========================================================
+     */
+
+    const mathsClassNotesSearch =
+        document.getElementById("mathsClassNotesSearch");
+
+    const mathsClassNotesClear =
+        document.getElementById("mathsClassNotesClear");
+
+    const mathsClassNotesMeta =
+        document.getElementById("mathsClassNotesMeta");
+
+    const mathsSheetsSearch =
+        document.getElementById("mathsSheetsSearch");
+
+    const mathsSheetsClear =
+        document.getElementById("mathsSheetsClear");
+
+    const mathsSheetsMeta =
+        document.getElementById("mathsSheetsMeta");
+
+    function setupNotesSearch(
+        input,
+        clearButton,
+        listSelector,
+        metaElement,
+        emptyText
+    ) {
+
+        if (!input) {
+            return;
+        }
+
+        function runSearch() {
+
+            const query =
+                input.value.trim().toLowerCase();
+
+            const items =
+                document.querySelectorAll(listSelector);
+
+            let visible = 0;
+
+            items.forEach(function(item) {
+
+                const source =
+                    item.dataset.noteSearch ||
+                    item.dataset.sheetSearch ||
+                    "";
+
+                const matches =
+                    !query ||
+                    source.includes(query);
+
+                item.style.display =
+                    matches ? "block" : "none";
+
+                if (matches) {
+                    visible += 1;
+                }
+
+            });
+
+            if (metaElement) {
+
+                metaElement.textContent =
+                    query
+                        ? visible + " result" + (visible === 1 ? "" : "s") + " found"
+                        : visible + " " + emptyText;
+
+            }
+
+        }
+
+        input.addEventListener("input", runSearch);
+
+        if (clearButton) {
+
+            clearButton.addEventListener(
+                "click",
+                function() {
+
+                    input.value = "";
+                    input.focus();
+                    runSearch();
+
+                }
+            );
+
+        }
+
+        runSearch();
+
+    }
+
+    /*
+     * Notes have exactly two independent sections:
+     * CLASS NOTES PDFs and SHEETS.
+     */
+    document.querySelectorAll(
+        "[data-notes-target]"
+    ).forEach(function(button) {
+
+        button.addEventListener(
+            "click",
+            function() {
+
+                const card =
+                    button.closest(".maths-notes-card");
+
+                if (!card) {
+                    return;
+                }
+
+                card.classList.toggle("open");
+
+            }
+        );
+
+    });
+
+    setupNotesSearch(
+        mathsClassNotesSearch,
+        mathsClassNotesClear,
+        "#classNotesList .note-item[data-note-search]",
+        mathsClassNotesMeta,
+        "class notes available"
+    );
+
+    setupNotesSearch(
+        mathsSheetsSearch,
+        mathsSheetsClear,
+        "#sheetsList .note-item[data-sheet-search]",
+        mathsSheetsMeta,
+        "sheets available"
+    );
+
+    /*
+     * PDF/SHEET buttons deliberately open the original PDF URL
+     * in a new browser tab. This gives Chrome's full-screen PDF
+     * viewer, the same full-view behavior as the video links.
+     */
+    document.querySelectorAll(
+        "#classNotesList .note-btn, #sheetsList .note-btn"
+    ).forEach(function(link) {
+
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+
+    });
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Escape") {
+                closeQualityPopup();
+            }
+
+        }
+    );
+
+</script>
+
+
+
+</body>
+
+</html>

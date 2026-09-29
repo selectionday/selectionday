@@ -1,0 +1,931 @@
+∩╗┐<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>SelectionDay</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #08090c;
+            color: #f0f4f8;
+            font-family: Arial, sans-serif;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            background: #0d0f13;
+            border-bottom: 1px solid #232932;
+            padding: 12px 24px;
+        }
+
+        .header-inner {
+            max-width: 1150px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .mascot {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #ccff00;
+            background: #ffffff;
+        }
+
+        .brand-name {
+            color: #ccff00;
+            font-size: 22px;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .brand-tagline {
+            display: inline-flex;
+            align-items: center;
+            margin-left: 4px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: #1683ff;
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .my-courses {
+            color: #f0f4f8;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .my-courses:hover {
+            color: #ccff00;
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .container {
+            max-width: 1150px;
+            margin: auto;
+            padding: 35px 24px 95px;
+        }
+
+        .hero h1 {
+            margin: 0 0 8px;
+            font-size: 34px;
+        }
+
+        .hero p {
+            color: #8b95a3;
+            margin: 0;
+        }
+
+        .powered {
+            position: relative;
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 360px;
+            min-height: 72px;
+            margin-top: 20px;
+            padding: 10px 34px 11px 38px;
+            background: rgba(7, 12, 15, 0.82);
+            border: 2px solid #ccff00;
+            clip-path: polygon(0 0, 94% 0, 100% 50%, 94% 100%, 0 100%, 7% 50%);
+            box-shadow: 0 0 18px rgba(204, 255, 0, 0.26), inset 0 0 18px rgba(204, 255, 0, 0.04);
+        }
+
+        .powered::before {
+            content: "⚡";
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ccff00;
+            font-size: 20px;
+            font-weight: 900;
+            text-shadow: 0 0 12px rgba(204, 255, 0, 0.75);
+        }
+
+        .powered-main {
+            font-size: 15px;
+            line-height: 1.15;
+            color: #b7c0ca;
+            font-weight: 500;
+        }
+
+        .powered-main strong {
+            color: #ccff00;
+            font-weight: 900;
+            font-size: 16px;
+            letter-spacing: 0.4px;
+            margin-left: 4px;
+            text-shadow: 0 0 11px rgba(204, 255, 0, 0.3);
+        }
+
+        .powered {
+            overflow: visible;
+        }
+
+        .powered-sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow: 0 0 9px #ccff00, 0 0 16px rgba(204, 255, 0, 0.65);
+            pointer-events: none;
+            animation: sparklePulse 1.7s ease-in-out infinite;
+        }
+
+        .powered-sparkle::before,
+        .powered-sparkle::after {
+            content: "✦";
+            position: absolute;
+            color: #ccff00;
+            font-size: 12px;
+            line-height: 1;
+            text-shadow: 0 0 9px rgba(204, 255, 0, 0.95);
+            animation: sparkleFloat 1.9s ease-in-out infinite;
+        }
+
+        .powered-sparkle::before { left: -9px; top: -8px; }
+        .powered-sparkle::after { right: -9px; bottom: -8px; font-size: 8px; animation-delay: 0.65s; }
+
+        .powered-sparkle.p1 { left: 9%; top: -8px; }
+        .powered-sparkle.p2 { right: 5%; top: 8px; animation-delay: 0.8s; }
+
+        .powered-tagline {
+            color: #d1d5db;
+            font-size: 13px;
+            font-style: italic;
+            line-height: 1.2;
+        }
+
+        .hero-course-word {
+            color: #ccff00;
+        }
+
+        .filters {
+            margin-top: 30px;
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid #232932;
+        }
+
+        .filter {
+            padding: 12px 18px;
+            text-decoration: none;
+            color: #8b95a3;
+            font-size: 12px;
+            font-weight: 800;
+            border-bottom: 2px solid transparent;
+        }
+
+        .filter.active {
+            color: #ccff00;
+            border-bottom-color: #ccff00;
+        }
+
+        .course-count {
+            margin: 22px 0;
+            color: #7f8997;
+            font-size: 13px;
+        }
+
+        .courses {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        /* =========================
+           COURSE CARDS
+        ========================= */
+
+        .course {
+            position: relative;
+            overflow: hidden;
+
+            background-color: #0d0f13;
+
+            border: 1px solid #232932;
+            padding: 22px;
+            text-decoration: none;
+            color: #f0f4f8;
+            min-height: 170px;
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            transition:
+                border-color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .course::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    to bottom,
+                    rgba(0, 0, 0, 0.35),
+                    rgba(0, 0, 0, 0.82)
+                );
+
+            z-index: 0;
+        }
+
+        .course > div {
+            position: relative;
+            z-index: 1;
+        }
+
+        .course:hover {
+            border-color: #ccff00;
+        }
+
+        .course-name {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 12px;
+
+            text-shadow:
+                0 2px 5px rgba(0, 0, 0, 0.8);
+        }
+
+        .course-description {
+            color: #ffffff;
+            line-height: 1.5;
+            font-size: 13px;
+
+            text-shadow:
+                0 2px 5px rgba(0, 0, 0, 0.9);
+        }
+
+        .open-course {
+            margin-top: 22px;
+            color: #ccff00;
+            font-size: 12px;
+            font-weight: 800;
+
+            text-shadow:
+                0 2px 5px rgba(0, 0, 0, 0.9);
+        }
+
+        /* =========================
+           SUBJECT IMAGES
+        ========================= */
+
+        .course-history {
+            background-image:
+                url("/static/images/subjects/history.jpg");
+        }
+
+        .course-geography {
+            background-image:
+                url("/static/images/subjects/geography.jpg");
+        }
+
+        .course-polity {
+            background-image:
+                url("/static/images/subjects/polity.jpg");
+        }
+
+        .course-economics {
+            background-image:
+                url("/static/images/subjects/economics.jpg");
+        }
+
+        .course-maths {
+            background-image:
+                url("/static/images/subjects/math.jpg");
+        }
+
+        .course-math {
+            background-image:
+                url("/static/images/subjects/math.jpg");
+        }
+
+        .course-reasoning {
+            background-image:
+                url("/static/images/subjects/reasoning.jpg");
+        }
+
+        .course-english {
+            background-image:
+                url("/static/images/subjects/english.jpg");
+        }
+
+        .course-hindi {
+            background-image:
+                url("/static/images/subjects/hindi.jpg");
+        }
+
+        .course-science {
+            background-image:
+                url("/static/images/subjects/general-science.jpg");
+        }
+
+        .course-general-science {
+            background-image:
+                url("/static/images/subjects/general-science.jpg");
+        }
+
+        .course-general_science {
+            background-image:
+                url("/static/images/subjects/general-science.jpg");
+        }
+
+        .course-computer {
+            background-image:
+                url("/static/images/subjects/computer.jpg");
+        }
+
+        .course-current-affairs {
+            background-image:
+                url("/static/images/subjects/current-affairs.jpg");
+        }
+
+        .course-current_affairs {
+            background-image:
+                url("/static/images/subjects/current-affairs.jpg");
+        }
+
+        .course-verbal {
+            background-image:
+                url("/static/images/subjects/verbal.jpg");
+        }
+
+        .course-non-verbal {
+            background-image:
+                url("/static/images/subjects/non-verbal.jpg");
+        }
+
+        .course-non_verbal {
+            background-image:
+                url("/static/images/subjects/non-verbal.jpg");
+        }
+
+        .empty {
+            padding: 30px;
+            border: 1px solid #232932;
+            color: #7f8997;
+            text-align: center;
+        }
+
+        /* =========================
+           TELEGRAM AT PAGE TOP + VISHNO BAR
+        ========================= */
+
+        .telegram-float {
+            position: absolute !important;
+            inset: auto 28px auto auto !important;
+            top: 118px !important;
+            bottom: auto !important;
+            right: 28px !important;
+            left: auto !important;
+            width: 320px;
+            min-height: 96px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            background: rgba(5, 14, 24, 0.97);
+            border: 2px solid #1683ff;
+            border-radius: 14px;
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.48), 0 0 18px rgba(22, 131, 255, 0.16);
+            backdrop-filter: blur(10px);
+            z-index: 2147483000 !important;
+        }
+
+        .telegram-float::before,
+        .telegram-float::after {
+            content: "✦";
+            position: absolute;
+            color: #ffffff;
+            font-size: 12px;
+            pointer-events: none;
+            text-shadow: 0 0 9px rgba(22, 131, 255, 0.95);
+            animation: sparkleFloat 1.9s ease-in-out infinite;
+        }
+
+        .telegram-float::before {
+            left: -10px;
+            top: 25px;
+        }
+
+        .telegram-float::after {
+            right: 58px;
+            bottom: -10px;
+            font-size: 9px;
+            animation-delay: 0.75s;
+        }
+
+        .telegram-sparkle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow: 0 0 8px #1683ff;
+            pointer-events: none;
+            animation: sparklePulse 1.6s ease-in-out infinite;
+        }
+
+        .telegram-sparkle.s1 { left: 92px; top: -7px; }
+        .telegram-sparkle.s2 { right: 36px; top: -5px; animation-delay: 0.55s; }
+        .telegram-sparkle.s3 { right: -7px; bottom: 20px; width: 4px; height: 4px; animation-delay: 1s; }
+
+        .telegram-float-icon {
+            flex: 0 0 50px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #1683ff;
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: 900;
+        }
+
+        .telegram-float-content {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .telegram-float-title {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            line-height: 1.2;
+        }
+
+        .telegram-float-title a {
+            color: #1683ff;
+            text-decoration: none;
+            font-weight: 900;
+        }
+
+        .telegram-float-title a:hover {
+            color: #5aaeff;
+            text-decoration: underline;
+        }
+
+        .telegram-float-text {
+            color: #b5bfca;
+            font-size: 13px;
+            line-height: 1.35;
+        }
+
+        .telegram-float-close {
+            position: absolute;
+            top: 11px;
+            right: 12px;
+            width: 28px;
+            height: 28px;
+            border: 0;
+            background: transparent;
+            color: #aeb7c2;
+            font-size: 24px;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .telegram-float-close:hover {
+            color: #ffffff;
+        }
+
+        .vishnoi-fixed {
+            position: fixed !important;
+            left: 0 !important;
+            right: auto !important;
+            bottom: 0 !important;
+            z-index: 2147482999 !important;
+            transform: translate3d(0, 0, 0);
+            will-change: transform;
+            width: 620px;
+            min-height: 68px;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 8px 32px 8px 74px;
+            background: rgba(7, 11, 14, 0.97);
+            border-top: 2px solid #ccff00;
+            border-right: 2px solid #ccff00;
+            clip-path: polygon(0 0, 91% 0, 100% 100%, 0 100%);
+            box-shadow: 0 -8px 28px rgba(0, 0, 0, 0.38), 0 0 18px rgba(204, 255, 0, 0.16);
+            backdrop-filter: blur(10px);
+        }
+
+        .vishnoi-fixed::before {
+            content: "⚡";
+            position: absolute;
+            left: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 47px;
+            height: 47px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #ccff00;
+            border-radius: 50%;
+            color: #ccff00;
+            font-size: 22px;
+            font-weight: 900;
+            background: #080b0e;
+            box-shadow: 0 0 13px rgba(204, 255, 0, 0.4);
+        }
+
+        .vishnoi-fixed-main {
+            color: #b4bdc7;
+            font-size: 17px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .vishnoi-fixed-name {
+            color: #ccff00;
+            font-size: 19px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-shadow: 0 0 12px rgba(204, 255, 0, 0.25);
+            white-space: nowrap;
+        }
+
+        .vishnoi-fixed-sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow: 0 0 9px #ccff00, 0 0 16px rgba(204, 255, 0, 0.65);
+            pointer-events: none;
+            animation: sparklePulse 1.7s ease-in-out infinite;
+        }
+
+        .vishnoi-fixed-sparkle::before {
+            content: "✦";
+            position: absolute;
+            left: -9px;
+            top: -8px;
+            color: #ccff00;
+            font-size: 12px;
+            text-shadow: 0 0 9px rgba(204, 255, 0, 0.95);
+            animation: sparkleFloat 1.9s ease-in-out infinite;
+        }
+
+        .vishnoi-fixed-sparkle.f1 { left: 132px; top: 8px; }
+        .vishnoi-fixed-sparkle.f2 { left: 665px; top: 58px; animation-delay: 0.7s; }
+
+        .vishnoi-fixed-tagline {
+            color: #b6bec7;
+            font-size: 13px;
+            font-style: italic;
+            white-space: nowrap;
+        }
+
+        @keyframes sparklePulse {
+            0%, 100% { opacity: 0.25; transform: scale(0.55); }
+            50% { opacity: 1; transform: scale(1.35); }
+        }
+
+        @keyframes sparkleFloat {
+            0%, 100% { opacity: 0.2; transform: scale(0.7) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1.25) rotate(18deg); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .telegram-sparkle,
+            .telegram-float::before,
+            .telegram-float::after,
+            .powered-sparkle,
+            .powered-sparkle::before,
+            .powered-sparkle::after {
+                animation: none !important;
+            }
+        }
+
+        @media (max-width: 850px) {
+
+            .courses {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 700px) {
+
+            .brand-tagline {
+                display: none;
+            }
+
+            .mascot {
+                width: 42px;
+                height: 42px;
+            }
+
+            .brand-name {
+                font-size: 20px;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .header-inner {
+                align-items: center;
+            }
+
+            header {
+                padding: 10px 14px;
+            }
+
+            .container {
+                padding: 25px 14px 90px;
+            }
+
+            .courses {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .telegram-popup {
+                padding:
+                    30px 22px 25px;
+            }
+
+            .telegram-float {
+                top: 82px !important;
+                right: 12px !important;
+                left: 12px !important;
+                width: auto;
+            }
+
+            .vishnoi-fixed {
+                gap: 8px;
+                padding: 8px 10px;
+            }
+
+            .vishnoi-fixed-tagline {
+                display: none;
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+            .powered {
+                width: min(360px, calc(100vw - 48px));
+            }
+
+            .telegram-float {
+                top: 82px !important;
+                right: 12px !important;
+                left: auto !important;
+                width: min(320px, calc(100vw - 24px));
+            }
+
+            .vishnoi-fixed {
+                width: min(500px, calc(100vw - 12px));
+                padding-left: 66px;
+            }
+
+            .vishnoi-fixed-tagline {
+                display: none;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+<header>
+
+    <div class="header-inner">
+
+        <a
+            class="brand"
+            href="/">
+
+            <img
+                class="mascot"
+                src="/static/images/selectionday_mascot.jpg"
+                alt="SelectionDay">
+
+            <span class="brand-name">
+                SelectionDay
+            </span>
+
+            <span class="brand-tagline">
+                LEARN • GROW • SUCCEED
+            </span>
+
+        </a>
+
+
+        <a
+            class="my-courses"
+            href="/my-courses">
+
+            MY COURSES
+
+        </a>
+
+    </div>
+
+</header>
+
+
+<div class="container">
+
+
+    <div class="hero">
+
+        <h1>
+            Choose Your <span class="hero-course-word">Course</span>
+        </h1>
+
+        <p>
+            Learn at your own pace.
+        </p>
+
+        <div class="powered">
+            <span class="powered-sparkle p1"></span>
+            <span class="powered-sparkle p2"></span>
+            <div class="powered-main">Powered by <strong>VISHNOI</strong></div>
+            <div class="powered-tagline">Learn smarter. Grow stronger.</div>
+        </div>
+
+    </div>
+
+
+    <div class="filters">
+
+        <a
+            class="filter {% if selected_filter == 'all' %}active{% endif %}"
+            href="/?filter=all">
+
+            ALL
+
+        </a>
+
+        <a
+            class="filter {% if selected_filter == 'enrolled' %}active{% endif %}"
+            href="/?filter=enrolled">
+
+            ENROLLED ({{ enrolled_count }})
+
+        </a>
+
+    </div>
+
+
+    <div class="course-count">
+
+        {{ course_count }} Courses
+
+    </div>
+
+
+    {% if courses %}
+
+    <div class="courses">
+
+        {% for course in courses %}
+
+        <a
+            class="course course-{{ course.id }}"
+            href="/course/{{ course.id }}">
+
+            <div class="course-name">
+                {{ course.name }}
+            </div>
+
+            <div class="course-description">
+                {{ course.description }}
+            </div>
+
+            <div class="open-course">
+                OPEN COURSE →
+            </div>
+
+        </a>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="empty">
+
+        You haven't enrolled in any courses yet.
+
+    </div>
+
+    {% endif %}
+
+
+</div>
+
+
+
+
+<!-- =========================
+     FIXED TELEGRAM
+========================= -->
+
+<div class="telegram-float" id="telegramFloat">
+
+    <span class="telegram-sparkle s1"></span>
+    <span class="telegram-sparkle s2"></span>
+    <span class="telegram-sparkle s3"></span>
+
+    <div class="telegram-float-icon">
+        ✈
+    </div>
+
+    <div class="telegram-float-content">
+        <div class="telegram-float-title">
+            Join our
+            <a href="https://t.me/selectionday12" target="_blank" rel="noopener noreferrer">Telegram Channel</a>
+        </div>
+        <div class="telegram-float-text">
+            Get classes, updates, notes and announcements.
+        </div>
+    </div>
+
+    <button class="telegram-float-close" type="button" onclick="closeTelegramFloat()" aria-label="Close Telegram">×</button>
+
+</div>
+
+<!-- =========================
+     FIXED VISHNO BRANDING
+========================= -->
+
+<div class="vishnoi-fixed">
+    <span class="vishnoi-fixed-sparkle f1"></span>
+    <span class="vishnoi-fixed-sparkle f2"></span>
+    <span class="vishnoi-fixed-main">Powered by</span>
+    <span class="vishnoi-fixed-name">VISHNOI</span>
+    <span class="vishnoi-fixed-tagline">Learn smarter. Grow stronger.</span>
+</div>
+
+
+
+<script>
+function closeTelegramFloat() {
+    const telegram = document.getElementById("telegramFloat");
+    if (telegram) telegram.style.display = "none";
+}
+</script>
+
+</body>
+</html>
+
+
