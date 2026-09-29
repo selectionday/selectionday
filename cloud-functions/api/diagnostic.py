@@ -1,5 +1,6 @@
 from flask import Flask
-import sys
+import sqlite3
+import os
 import traceback
 
 app = Flask(__name__)
@@ -8,16 +9,17 @@ app = Flask(__name__)
 @app.route("/<path:path>")
 def diagnostic(path):
     try:
-        import maths_data
-
-        return (
-            "DIAGNOSTIC OK | "
-            "maths_data import works | "
-            f"Python: {sys.version}"
+        db_path = os.path.join(
+            os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
+            "selectionday.db"
         )
 
+        conn = sqlite3.connect(db_path)
+        conn.execute("SELECT name FROM sqlite_master WHERE type='table'")
+        tables = conn.fetchall()
+        conn.close()
+
+        return f"DB OK | Path: {db_path} | Tables: {tables}"
+
     except Exception:
-        return (
-            "DIAGNOSTIC FAILED\n\n"
-            + traceback.format_exc()
-        ), 500
+        return "DB FAILED\n\n" + traceback.format_exc(), 500
