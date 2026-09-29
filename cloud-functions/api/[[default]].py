@@ -1,6 +1,26 @@
 from flask import Flask, render_template, request, redirect, make_response
+import os
 import sqlite3
+import sys
 import uuid
+from pathlib import Path
+
+
+# =========================================================
+# EDGEONE / PATH SETUP
+# =========================================================
+# This file is deployed from: cloud-functions/api/[[default]].py
+# The maths data file is one level above this file, inside
+# cloud-functions/. The templates and static files are inside
+# cloud-functions/api/template/ and cloud-functions/api/static/.
+
+APP_DIR = Path(__file__).resolve().parent
+FUNCTIONS_DIR = APP_DIR.parent
+PROJECT_DIR = FUNCTIONS_DIR.parent
+
+# Make cloud-functions available for the maths_data import.
+if str(FUNCTIONS_DIR) not in sys.path:
+    sys.path.insert(0, str(FUNCTIONS_DIR))
 
 from maths_data import (
     maths_structure,
@@ -10,9 +30,30 @@ from maths_data import (
     maths_overview
 )
 
-app = Flask(__name__)
 
-DATABASE = "selectionday.db"
+# Explicitly point Flask at the folders that actually exist in the
+# EdgeOne Cloud Function package.
+app = Flask(
+    __name__,
+    template_folder=str(APP_DIR / "template"),
+    static_folder=str(APP_DIR / "static")
+)
+
+
+# Locally, keep using the project's existing database. On EdgeOne,
+# the project-root database may not be included in the function
+# package, so use a writable temporary location unless DATABASE_PATH
+# is explicitly supplied.
+configured_database = os.environ.get("DATABASE_PATH")
+local_database = PROJECT_DIR / "selectionday.db"
+edge_database = Path("/tmp/selectionday.db")
+
+if configured_database:
+    DATABASE = configured_database
+elif local_database.exists():
+    DATABASE = str(local_database)
+else:
+    DATABASE = str(edge_database)
 
 
 # =========================================================
