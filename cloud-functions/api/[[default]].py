@@ -46,13 +46,21 @@ app = Flask(
 # is explicitly supplied.
 configured_database = os.environ.get("DATABASE_PATH")
 local_database = PROJECT_DIR / "selectionday.db"
+seed_database = FUNCTIONS_DIR / "selectionday.db"
 edge_database = Path("/tmp/selectionday.db")
 
 if configured_database:
     DATABASE = configured_database
-elif local_database.exists():
+elif os.name == "nt":
+    # Local Windows development: use the original project database.
     DATABASE = str(local_database)
 else:
+    # EdgeOne runs Linux functions from a deployed, non-writable package.
+    # Use /tmp for the SQLite working copy and seed it from the packaged DB.
+    # This prevents SQLite from trying to write into the deployed package.
+    if not edge_database.exists() and seed_database.exists():
+        import shutil
+        shutil.copy2(seed_database, edge_database)
     DATABASE = str(edge_database)
 
 
