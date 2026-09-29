@@ -12,7 +12,7 @@ from pathlib import Path
 # This file is deployed from: cloud-functions/api/[[default]].py
 # The maths data file is one level above this file, inside
 # cloud-functions/. The templates and static files are inside
-# cloud-functions/api/template/ and cloud-functions/api/static/.
+# cloud-functions/api/templates/ and cloud-functions/api/static/.
 
 APP_DIR = Path(__file__).resolve().parent
 FUNCTIONS_DIR = APP_DIR.parent
@@ -35,7 +35,7 @@ from maths_data import (
 # EdgeOne Cloud Function package.
 app = Flask(
     __name__,
-    template_folder=str(APP_DIR / "template"),
+    template_folder=str(APP_DIR / "templates"),
     static_folder=str(APP_DIR / "static")
 )
 
